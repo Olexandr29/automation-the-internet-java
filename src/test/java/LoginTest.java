@@ -1,18 +1,15 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.SecurePage;
+import tests.BaseTest;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
+
     @Test
-    public void testCase1() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://the-internet.herokuapp.com/");
+    public void TC1SuccessfulLogin() {
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = homePage.openLoginPage();
         SecurePage securePage = loginPage.successfulLogin("tomsmith", "SuperSecretPassword!");
@@ -22,4 +19,5 @@ public class LoginTest {
         assertTrue(securePage.isLogoutBtnDisplayed(), "The Logout button is not displayed.");
 
     }
+
 }
