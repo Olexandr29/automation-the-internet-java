@@ -4,11 +4,14 @@
 # Log file
 *.log
 
-# BlueJ files
-*.ctxt
+# Java Virtual Machine crash logs
+hs_err_pid*
+replay_pid*
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Build output
+target/
+allure-report/
+effective-pom.xml
 
 # Package Files #
 *.jar
@@ -19,19 +22,12 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
-
-target/
-
 ### IntelliJ IDEA
-.idea/workspace.xml
-.idea/compiler.xml
-.idea/jarRepositories.xml
-.idea/modules.xml
-.idea/libraries/
-
+.idea/
 *.iml
 *.ipr
 *.iws
+
+# Operating system files
+.DS_Store
+Thumbs.db
