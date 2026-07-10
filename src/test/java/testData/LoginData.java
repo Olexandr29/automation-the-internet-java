@@ -14,6 +14,7 @@ public final class LoginData {
             URL_LOGIN_PAGE = "https://the-internet.herokuapp.com/login",
             WELCOME_MESSAGE = "Welcome to the Secure Area. When you are done click logout below.",
             ALERT_SUCCESSFUL_LOGIN = "You logged into a secure area!",
+            ALERT_LOGOUT = "You logged out of the secure area!",
             ALERT_INVALID_USERNAME = "Your username is invalid!",
             ALERT_INVALID_PASSWORD = "Your password is invalid!",
             SQL_INJECTION = "' OR '1'='1",

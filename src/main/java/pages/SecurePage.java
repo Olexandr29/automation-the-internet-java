@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class SecurePage extends BasePage {
@@ -24,6 +25,12 @@ public class SecurePage extends BasePage {
 
     public boolean isLogoutBtnDisplayed() {
         return isVisible(logoutBtnLocator, "Logout button");
+    }
+
+    public LoginPage logout() {
+        clickElement(logoutBtnLocator, "Logout button");
+        wait.until(ExpectedConditions.urlContains("/login"));
+        return new LoginPage(driver);
     }
 
 }

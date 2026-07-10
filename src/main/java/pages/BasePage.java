@@ -13,7 +13,7 @@ public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -61,6 +61,19 @@ public abstract class BasePage {
             logger.warn("Element is not visible: {}", locator);
             return false;
         }
+    }
+
+    protected String getFieldAttribute(String attributeTitle, By locator) {
+        logger.info("Get Attribute('{}')",attributeTitle );
+        WebElement element = find(locator);
+        String specificAttributeProperty = element.getAttribute(attributeTitle);
+        if ("value".equals(attributeTitle) && "password".equals(element.getAttribute("type")) )  {
+            String maskedValue = "*".repeat(specificAttributeProperty.length());
+            logger.info("The Attribute('{}') = '{}'", attributeTitle, maskedValue);
+        } else {
+            logger.info("The Attribute('{}') = '{}'", attributeTitle, specificAttributeProperty);
+        }
+        return specificAttributeProperty;
     }
 
 }

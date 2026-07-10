@@ -57,6 +57,33 @@ public class LoginTest extends BaseTest {
         };
     }
 
+    @Test
+    public void TC8Logout() {
+        SecurePage securePage = loginPage.successfulLogin(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
+        LoginPage loginPage1 = securePage.logout();
+        assertEquals(driver.getCurrentUrl(), LoginData.URL_LOGIN_PAGE);
+        assertTrue(loginPage1.getLogoutAlert().contains(LoginData.ALERT_LOGOUT), "the alert message for logout is wrong");
+        assertTrue(loginPage1.isLoginButtonDisplayed(), "The Login button is not displayed");
+    }
 
+    @Test
+    public void TC9UserCannotAccessTheSecureAreaAfterLogout() {
+        SecurePage securePage = loginPage.successfulLogin(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
+        LoginPage loginPage1 = securePage.logout();
+        assertTrue(loginPage1.isLoginButtonDisplayed(), "The Login button is not displayed");
+        logger.info("current URL is: {}", driver.getCurrentUrl());
+        driver.navigate().back();
+        logger.info("current URL after navigating back is: {}", driver.getCurrentUrl());
+        driver.navigate().refresh();
+        logger.info("current URL after refreshing is: {}", driver.getCurrentUrl());
+        assertEquals(driver.getCurrentUrl(), LoginData.URL_LOGIN_PAGE, "User not remains on the Login page and have access to Secure page");
+        assertTrue(loginPage1.isLoginButtonDisplayed(), "The Login button is not displayed");
+    }
+
+    @Test
+    public void TC20PasswordIsMasked() {
+        assertTrue(loginPage.isPasswordHidden(), "The attribute for password field is not password and the password is not hidden");
+        assertTrue(loginPage.isHiddenValueSaved(LoginData.VALID_PASSWORD), "The hidden password value is not saved");
+    }
 
 }
