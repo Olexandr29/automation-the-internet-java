@@ -2,6 +2,7 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
@@ -24,8 +25,16 @@ public class BaseTest {
         } else {
             logger.info("==================== {} ====================", method.getName() );
         }
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--incognito");
 
-        driver = new ChromeDriver();
+        if("true".equals(System.getenv("GITHUB_ACTIONS"))){
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+        }
+
+        driver = new ChromeDriver(options);
         driver.get("https://the-internet.herokuapp.com/");
         homePage = new HomePage(driver);
     }
