@@ -12,6 +12,8 @@ import pages.HomePage;
 import java.lang.reflect.Method;
 
 public class BaseTest {
+    protected static final String URL_HOME_PAGE = "https://the-internet.herokuapp.com/";
+
     protected WebDriver driver;
     protected HomePage homePage;
 

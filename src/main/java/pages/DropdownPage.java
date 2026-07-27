@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -52,11 +53,6 @@ public class DropdownPage extends BasePage {
         dropdown.selectByVisibleText(optionTitle);
     }
 
-//    public void pressArrowDown() {
-//        logger.info("Sending ARROW_DOWN key to dropdown");
-//        find(dropdownLocator).sendKeys(Keys.ARROW_DOWN);
-//    }
-
     public void pressArrowDown() {
         pressKey(Keys.ARROW_DOWN, dropdownLocator);
     }
@@ -65,7 +61,29 @@ public class DropdownPage extends BasePage {
         pressKey(Keys.ARROW_UP, dropdownLocator);
     }
 
+    public void makeDropdownActive() {
+        Actions actions = new Actions(driver);
+        int attempts = 0;
+        while(!driver.switchTo().activeElement().equals(find(dropdownLocator))
+                && attempts < 11) {
+            actions.sendKeys(Keys.TAB).perform();
+            attempts++;
+        }
+    }
 
+    public boolean isDropdownActive() {
+        WebElement focused = driver.switchTo().activeElement();
+        WebElement dropdown = find(dropdownLocator);
+        return focused.equals(dropdown);
+    }
+
+    public void pressEnter() {
+        pressKey(Keys.ENTER, dropdownLocator);
+    }
+
+    public void pressEscape() {
+        pressKey(Keys.ESCAPE, dropdownLocator);
+    }
 
 
 

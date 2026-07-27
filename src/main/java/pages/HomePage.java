@@ -22,4 +22,9 @@ public class HomePage extends  BasePage {
         clickElement(dropdownLink, "DropdownLink");
         return new DropdownPage(driver);
     }
+
+    public boolean isDropdownLinkVisible() {
+        return isVisible(dropdownLink, "the Dropdown link");
+    }
+
 }
