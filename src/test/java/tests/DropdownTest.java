@@ -23,10 +23,9 @@ public class DropdownTest extends BaseTest {
 
     @Test
     public void TC21DropdownDefaultState() {
-        assertEquals(driver.getCurrentUrl(), DropdownData.URL_DROPDOWN_PAGE, "The Dropdown page is not opened.");
-        assertTrue(dropdownPage.isDropdownVisible(), "The dropdown is not visible.");
-        assertEquals(dropdownPage.getSelectedDropdownText(), "Please select an option",
-                "The default selected value should be 'Please select an option'");
+        assertEquals(driver.getCurrentUrl(), DropdownData.URL_DROPDOWN_PAGE, "The Dropdown page should be opened.");
+        assertTrue(dropdownPage.isDropdownVisible(), "The dropdown should be visible.");
+        assertEquals(dropdownPage.getSelectedDropdownText(), DropdownData.OPTION_DEFAULT, String.format("The default selected value should be %s", DropdownData.OPTION_DEFAULT));
     }
 
     @Test
