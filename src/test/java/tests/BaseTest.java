@@ -12,34 +12,34 @@ import pages.HomePage;
 import java.lang.reflect.Method;
 
 public class BaseTest {
+    protected static final String URL_HOME_PAGE = "https://the-internet.herokuapp.com/";
+
     protected WebDriver driver;
     protected HomePage homePage;
 
-    protected static final Logger logger =
-            LoggerFactory.getLogger(BaseTest.class);
+    protected final Logger logger =
+            LoggerFactory.getLogger(getClass());
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(Method method, Object[] testData) {
         if (testData.length > 0) {
             logger.info("==================== {} ====================", testData[0]);
         } else {
-            logger.info("==================== {} ====================", method.getName() );
+            logger.info("==================== {} ====================", method.getName());
         }
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
-
-        if("true".equals(System.getenv("GITHUB_ACTIONS"))){
+        if ("true".equals(System.getenv("GITHUB_ACTIONS"))) {
             options.addArguments("--headless=new");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
         }
-
         driver = new ChromeDriver(options);
-        driver.get("https://the-internet.herokuapp.com/");
+        driver.get(URL_HOME_PAGE);
         homePage = new HomePage(driver);
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
         driver.quit();
     }

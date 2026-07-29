@@ -76,4 +76,9 @@ public abstract class BasePage {
         return specificAttributeProperty;
     }
 
+    public void pressKey(Keys key, By locator) {
+        logger.info("Pressing '{}' key on element: {}", key, locator);
+        find(locator).sendKeys(key);
+    }
+
 }
