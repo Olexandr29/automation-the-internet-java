@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.DropdownPage;
@@ -8,6 +9,7 @@ import testData.DropdownData;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+@Feature("Dropdown - allure annotation @Feature")
 @Test(groups = {"regression"})
 public class DropdownTest extends BaseTest {
 
