@@ -10,6 +10,7 @@ replay_pid*
 
 # Build output
 target/
+allure/
 allure-report/
 effective-pom.xml
 

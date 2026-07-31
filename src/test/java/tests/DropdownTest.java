@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,14 +10,14 @@ import testData.DropdownData;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-@Feature("Dropdown - allure annotation @Feature")
+@Feature("Dropdown")
 @Test(groups = {"regression"})
 public class DropdownTest extends BaseTest {
 
     private DropdownPage dropdownPage;
 
     @BeforeMethod(alwaysRun = true, dependsOnMethods = "setUp")
-    public void openDropdown() {
+    public void openDropdownPage() {
         dropdownPage = homePage.openDropdownPage();
     }
 
@@ -93,16 +94,20 @@ public class DropdownTest extends BaseTest {
 
     @Test(groups = {"smoke"})
     public void TC28VerifyOnlyOneOptionCanBeSelectedAtaTime() {
+        Allure.step("Select first option");
         dropdownPage.selectSpecificOption(DropdownData.OPTION_1);
         assertEquals(dropdownPage.getSelectedDropdownText(), DropdownData.OPTION_1, String.format("The %s should became the selected value.", DropdownData.OPTION_1) );
+        Allure.step("Select second option");
         dropdownPage.selectSpecificOption(DropdownData.OPTION_2);
         assertEquals(dropdownPage.getSelectedDropdownText(), DropdownData.OPTION_2, String.format("Only one option should be selected at a time, and now it should be the %s", DropdownData.OPTION_2) );
+        Allure.step("Only one option is selected at a time.");
     }
 
     @Test(groups = {"navigation"})
     public void TC29VerifySelectedOptionAfterRefresh() {
         dropdownPage.selectSpecificOption(DropdownData.OPTION_1);
         assertEquals(dropdownPage.getSelectedDropdownText(), DropdownData.OPTION_1, String.format("The %s should be selected", DropdownData.OPTION_1));
+        Allure.step("Click the browser Refresh button");
         driver.navigate().refresh();
         assertEquals(dropdownPage.getSelectedDropdownText(), DropdownData.OPTION_DEFAULT, String.format("The default value %s should be selected", DropdownData.OPTION_DEFAULT));
     }
@@ -111,10 +116,13 @@ public class DropdownTest extends BaseTest {
     public void TC30VerifyBrowserBackAndForwardNavigationBehaviour() {
         dropdownPage.selectSpecificOption(DropdownData.OPTION_2);
         assertEquals(dropdownPage.getSelectedDropdownText(), DropdownData.OPTION_2, String.format("The %s should be selected", DropdownData.OPTION_2));
+        Allure.step("Click the browser Back button");
         driver.navigate().back();
         assertEquals(driver.getCurrentUrl(), URL_HOME_PAGE, "The Home page should be opened" );
         assertTrue(homePage.isDropdownLinkVisible(), "The Dropdown link should be visible");
+        Allure.step("Click the browser Forward button");
         driver.navigate().forward();
+        Allure.step("Is Dropdown page opened after click the browser Forward button");
         assertEquals(driver.getCurrentUrl(), DropdownData.URL_DROPDOWN_PAGE, "The Dropdown page should be opened");
         assertEquals(dropdownPage.getSelectedDropdownText(), DropdownData.OPTION_2, String.format("- The %s should be displayed as selected", DropdownData.OPTION_2));
     }

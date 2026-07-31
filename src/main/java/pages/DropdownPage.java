@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -23,11 +24,11 @@ public class DropdownPage extends BasePage {
         return isVisible(dropdownLocator, "Dropdown");
     }
 
-    @Step("Get selected value")
     public String getSelectedDropdownText() {
         Select dropdown = new Select(find(dropdownLocator));
         String selectedValue = dropdown.getFirstSelectedOption().getText();
         logger.info("Selected option: {}", selectedValue);
+        Allure.step("Get the Selected value. Selected is:" + selectedValue);
         return selectedValue;
     }
 
@@ -36,6 +37,7 @@ public class DropdownPage extends BasePage {
         List<WebElement> dropdownOptions = driver.findElements(optionsLocator);
         int dropdownSize = dropdownOptions.size();
         logger.info("amountOfAvailableDropdownOptions: {}", dropdownSize);
+        Allure.step("Amount is: " + dropdownSize);
         return dropdownSize;
     }
 
@@ -52,7 +54,7 @@ public class DropdownPage extends BasePage {
         return result;
     }
 
-    @Step("select specific value")
+    @Step("select specific value: '{optionTitle}'")
     public void selectSpecificOption(String optionTitle) {
         Select dropdown = new Select(find(dropdownLocator));
         dropdown.selectByVisibleText(optionTitle);

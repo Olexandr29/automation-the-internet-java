@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Feature;
 import org.testng.annotations.*;
 import pages.LoginPage;
 import pages.SecurePage;
@@ -9,6 +11,7 @@ import java.lang.reflect.Method;
 
 import static org.testng.Assert.*;
 
+@Feature("Login")
 public class LoginTest extends BaseTest {
 
     private LoginPage loginPage;
@@ -72,8 +75,10 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage1 = securePage.logout();
         assertTrue(loginPage1.isLoginButtonDisplayed(), "The Login button is not displayed");
         logger.info("current URL is: {}", driver.getCurrentUrl());
+        Allure.step("Click the browser Back button");
         driver.navigate().back();
         logger.info("current URL after navigating back is: {}", driver.getCurrentUrl());
+        Allure.step("Click the browser Refresh button");
         driver.navigate().refresh();
         logger.info("current URL after refreshing is: {}", driver.getCurrentUrl());
         assertEquals(driver.getCurrentUrl(), LoginData.URL_LOGIN_PAGE, "User not remains on the Login page and have access to Secure page");
