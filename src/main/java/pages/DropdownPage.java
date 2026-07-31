@@ -1,5 +1,7 @@
 package pages;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -26,16 +28,20 @@ public class DropdownPage extends BasePage {
         Select dropdown = new Select(find(dropdownLocator));
         String selectedValue = dropdown.getFirstSelectedOption().getText();
         logger.info("Selected option: {}", selectedValue);
+        Allure.step("Get the Selected value. Selected is:" + selectedValue);
         return selectedValue;
     }
 
+    @Step("Get amount Of available value for selection")
     public int amountOfAvailableDropdownOptions() {
         List<WebElement> dropdownOptions = driver.findElements(optionsLocator);
         int dropdownSize = dropdownOptions.size();
         logger.info("amountOfAvailableDropdownOptions: {}", dropdownSize);
+        Allure.step("Amount is: " + dropdownSize);
         return dropdownSize;
     }
 
+    @Step("Is specific value displayed")
     public boolean isSpecificOptionDisplayed(String optionTitle) {
         boolean result = false;
         List<WebElement> optionsAr = driver.findElements(optionsLocator);
@@ -48,6 +54,7 @@ public class DropdownPage extends BasePage {
         return result;
     }
 
+    @Step("select specific value: '{optionTitle}'")
     public void selectSpecificOption(String optionTitle) {
         Select dropdown = new Select(find(dropdownLocator));
         dropdown.selectByVisibleText(optionTitle);
@@ -61,6 +68,7 @@ public class DropdownPage extends BasePage {
         pressKey(Keys.ARROW_UP, dropdownLocator);
     }
 
+    @Step("Make dropdown active")
     public void makeDropdownActive() {
         Actions actions = new Actions(driver);
         int attempts = 0;
@@ -71,6 +79,7 @@ public class DropdownPage extends BasePage {
         }
     }
 
+    @Step("Is dropdown active")
     public boolean isDropdownActive() {
         WebElement focused = driver.switchTo().activeElement();
         WebElement dropdown = find(dropdownLocator);

@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,6 +26,7 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    @Step("Click on: '{elementName}'")
     protected void clickElement(By locator, String elementName){
         logger.info("Click on: {}", elementName);
         try {
@@ -37,6 +39,7 @@ public abstract class BasePage {
         }
     }
 
+    @Step("Enter value into: '{elementName}'")
     protected void type(By locator, String text, String elementName) {
         logger.info("Enter value into: {}", elementName);
         WebElement element = this.find(locator);
@@ -44,6 +47,7 @@ public abstract class BasePage {
         element.sendKeys(text);
     }
 
+    @Step("Get text from: '{elementName}'")
     protected String getElementText(By locator, String elementName) {
         logger.info("Get text from: {}", elementName);
         WebElement element = this.find(locator);
@@ -52,6 +56,7 @@ public abstract class BasePage {
         return text;
     }
 
+    @Step("Checking visibility of '{elementName}'")
     protected boolean isVisible(By locator, String elementName) {
         logger.info("Checking visibility of {}", elementName);
 
@@ -63,6 +68,7 @@ public abstract class BasePage {
         }
     }
 
+    @Step("Get Attribute '{attributeTitle}'")
     protected String getFieldAttribute(String attributeTitle, By locator) {
         logger.info("Get Attribute('{}')",attributeTitle );
         WebElement element = find(locator);
@@ -76,6 +82,7 @@ public abstract class BasePage {
         return specificAttributeProperty;
     }
 
+    @Step("Pressing '{key}' key on element: {locator}")
     public void pressKey(Keys key, By locator) {
         logger.info("Pressing '{}' key on element: {}", key, locator);
         find(locator).sendKeys(key);

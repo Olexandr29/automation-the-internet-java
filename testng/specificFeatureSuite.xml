@@ -7,7 +7,16 @@
     <test name="Dropdown Tests">
 
                 <classes>
-                    <class name="tests.DropdownTest"/>
+                    <class name="tests.DropdownTest">
+
+                    <methods>
+                        <include name="TC21DropdownDefaultState"/>
+                        <include name="TC22VerifyDropdownOptionsDisplayed"/>
+                        <include name="TC23SelectOption1"/>
+                        <include name="TC24VerifyOptionRemainsSelectedAfterReopeningAndClosing"/>
+                    </methods>
+
+                    </class>
                 </classes>
 
     </test>
