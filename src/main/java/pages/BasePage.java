@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -82,9 +83,9 @@ public abstract class BasePage {
         return specificAttributeProperty;
     }
 
-    @Step("Pressing '{key}' key on element: {locator}")
     public void pressKey(Keys key, By locator) {
-        logger.info("Pressing '{}' key on element: {}", key, locator);
+        Allure.step("Pressing '" + key.name() + "' key on element: " + locator);
+        logger.info("Pressing '{}' key on element: {}", key.name(), locator);
         find(locator).sendKeys(key);
     }
 
