@@ -7,23 +7,20 @@ import pages.LoginPage;
 import pages.SecurePage;
 import testData.LoginData;
 
-import java.lang.reflect.Method;
-
 import static org.testng.Assert.*;
 
 @Feature("Login")
+@Test(groups = {"regression"})
 public class LoginTest extends BaseTest {
 
     private LoginPage loginPage;
 
-    @Override
-    @BeforeMethod
-    public void setUp(Method method, Object[] testData) {
-        super.setUp(method, testData);
+    @BeforeMethod(alwaysRun = true, dependsOnMethods = "setUp")
+    public void openLoginPage() {
         loginPage = homePage.openLoginPage();
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void TC1SuccessfulLogin() {
         SecurePage securePage = loginPage.successfulLogin(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
         assertEquals(driver.getCurrentUrl(), LoginData.URL_SECURE_PAGE, "User is not redirected to the Secure page");
@@ -60,7 +57,7 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void TC8Logout() {
         SecurePage securePage = loginPage.successfulLogin(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
         LoginPage loginPage1 = securePage.logout();
@@ -69,7 +66,7 @@ public class LoginTest extends BaseTest {
         assertTrue(loginPage1.isLoginButtonDisplayed(), "The Login button is not displayed");
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void TC9UserCannotAccessTheSecureAreaAfterLogout() {
         SecurePage securePage = loginPage.successfulLogin(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
         LoginPage loginPage1 = securePage.logout();
@@ -85,7 +82,7 @@ public class LoginTest extends BaseTest {
         assertTrue(loginPage1.isLoginButtonDisplayed(), "The Login button is not displayed");
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void TC20PasswordIsMasked() {
         assertTrue(loginPage.isPasswordHidden(), "The attribute for password field is not password and the password is not hidden");
         assertTrue(loginPage.isHiddenValueSaved(LoginData.VALID_PASSWORD), "The hidden password value is not saved");
