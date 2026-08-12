@@ -93,16 +93,60 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
 
-                    <suiteXmlFiles>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-                    </suiteXmlFiles>
+<!--                    <suiteXmlFiles>-->
+<!--                        &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>-->
+<!--                    </suiteXmlFiles>-->
                 </configuration>
 
             </plugin>
 
         </plugins>
     </build>
+
+    <profiles>
+
+        <profile>
+            <id>smoke</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng/smoke.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>regression</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng/regression.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 
 
 </project>
