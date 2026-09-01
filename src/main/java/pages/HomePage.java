@@ -7,6 +7,7 @@ public class HomePage extends  BasePage {
 
     private final By loginLink = By.linkText("Form Authentication");
     private final By dropdownLink = By.linkText("Dropdown");
+    private final By checkboxLink = By.linkText("Checkboxes");
 
     public HomePage(WebDriver driver) {
 
@@ -21,6 +22,11 @@ public class HomePage extends  BasePage {
     public DropdownPage openDropdownPage() {
         clickElement(dropdownLink, "DropdownLink");
         return new DropdownPage(driver);
+    }
+
+    public CheckboxPage openCheckboxPage() {
+        clickElement(checkboxLink, "checkboxLink");
+        return new CheckboxPage(driver);
     }
 
     public boolean isDropdownLinkVisible() {

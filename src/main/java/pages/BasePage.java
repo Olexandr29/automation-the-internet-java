@@ -69,6 +69,18 @@ public abstract class BasePage {
         }
     }
 
+    @Step("Checking visibility of '{elementName}'")
+    protected boolean isVisible(WebElement element, String elementName) {
+        logger.info("Checking visibility of {}", elementName);
+
+        try {
+            return element.isDisplayed();
+        } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e){
+            logger.warn("Element is not visible: {}", elementName);
+            return false;
+        }
+    }
+
     @Step("Get Attribute '{attributeTitle}'")
     protected String getFieldAttribute(String attributeTitle, By locator) {
         logger.info("Get Attribute('{}')",attributeTitle );
