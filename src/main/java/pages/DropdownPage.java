@@ -21,7 +21,6 @@ public class DropdownPage extends BasePage {
     }
 
     public boolean isDropdownVisible() {
-
         return isVisible(dropdownLocator, "Dropdown");
     }
 
