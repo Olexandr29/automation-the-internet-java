@@ -3,6 +3,7 @@ package tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CheckboxPage;
+import testData.CheckboxData;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -17,9 +18,9 @@ public class CheckboxTest extends BaseTest {
     }
     @Test
     public void TC31VerifyCheckboxesAreVisible() {
-        assertEquals(driver.getCurrentUrl(), "https://the-internet.herokuapp.com/checkboxes", "The Checkboxes page is not opened");
-        assertTrue(checkboxPage.isCheckboxVisible(1), "The checkbox 1 is not visible");
-        assertTrue(checkboxPage.isCheckboxVisible(2), "The checkbox 2 is not visible");
+        assertEquals(driver.getCurrentUrl(), CheckboxData.CheckboxPageURL, "The Checkbox page is not opened");
+        assertTrue(checkboxPage.isCheckboxVisible(1), String.format("The '%s' is not visible", CheckboxData.CHECKBOX_1) );
+        assertTrue(checkboxPage.isCheckboxVisible(2), String.format("The %s is not visible", CheckboxData.CHECKBOX_2) );
 
     }
 
