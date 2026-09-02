@@ -100,5 +100,8 @@ public abstract class BasePage {
         logger.info("Pressing '{}' key on element: {}", key.name(), locator);
         find(locator).sendKeys(key);
     }
+    public void pressKey(Keys key, WebElement element) {
+        element.sendKeys(key);
+    }
 
 }
