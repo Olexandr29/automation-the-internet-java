@@ -36,6 +36,7 @@ jobs:
         uses: simple-elf/allure-report-action@master
         with:
           allure_results: target/allure-results
+          path: allure-report
 
       - name: Upload Allure Results
         if: always()
