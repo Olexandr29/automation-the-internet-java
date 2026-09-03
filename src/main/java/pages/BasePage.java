@@ -57,14 +57,26 @@ public abstract class BasePage {
         return text;
     }
 
-    @Step("Checking visibility of '{elementName}'")
+    @Step("Observe the visibility of '{elementName}'")
     protected boolean isVisible(By locator, String elementName) {
-        logger.info("Checking visibility of {}", elementName);
+        logger.info("Observe the visibility of {}", elementName);
 
         try {
             return this.find(locator).isDisplayed();
         } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e){
             logger.warn("Element is not visible: {}", locator);
+            return false;
+        }
+    }
+
+    @Step("Observe the visibility of '{elementName}'")
+    protected boolean isVisible(WebElement element, String elementName) {
+        logger.info("Observe the visibility of {}", elementName);
+
+        try {
+            return element.isDisplayed();
+        } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e){
+            logger.warn("Element is not visible: {}", elementName);
             return false;
         }
     }
@@ -87,6 +99,9 @@ public abstract class BasePage {
         Allure.step("Pressing '" + key.name() + "' key on element: " + locator);
         logger.info("Pressing '{}' key on element: {}", key.name(), locator);
         find(locator).sendKeys(key);
+    }
+    public void pressKey(Keys key, WebElement element) {
+        element.sendKeys(key);
     }
 
 }
