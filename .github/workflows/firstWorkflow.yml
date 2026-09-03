@@ -33,7 +33,7 @@ jobs:
 
       - name: Generate Allure Report
         if: always()
-        uses: simple-elf/allure-report-action@main
+        uses: simple-elf/allure-report-action@master
         with:
           allure_results: target/allure-results
 
