@@ -14,6 +14,11 @@ on:
 
     workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -31,11 +36,22 @@ jobs:
       - name: Run tests via Maven with integrated Allure
         run: mvn clean test
 
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: target/allure-results
+
       - name: Generate Allure Report
         if: always()
         uses: simple-elf/allure-report-action@master
         with:
           allure_results: target/allure-results
+
+      - name: Setup GitHub Pages
+        if: always()
+        uses: actions/configure-pages@v5
 
       - name: Upload Allure Report
         if: always()
@@ -44,9 +60,21 @@ jobs:
           name: allure-report
           path: allure-report
 
-      - name: Upload Allure Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-            name: allure-results
-            path: target/allure-results
+deploy:
+  needs: test
+  if: always()
+
+  permissions:
+    pages: write
+    id-token: write
+
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Deploy Allure Report to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
