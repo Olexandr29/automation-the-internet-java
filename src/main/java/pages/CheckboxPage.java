@@ -6,9 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
-import java.util.List;
 
 public class CheckboxPage extends BasePage {
     private final By checkboxLocator = By.tagName("input");
@@ -17,55 +15,36 @@ public class CheckboxPage extends BasePage {
     }
 
     public boolean isCheckboxVisible(int checkboxNumber) {
-        List<WebElement> checkboxes = driver.findElements(checkboxLocator);
-        WebElement targetCheckbox = checkboxes.get(checkboxNumber - 1);
+        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
         return isVisible(targetCheckbox,  String.format("The Checkbox'%d'", checkboxNumber) );
     }
 
     public boolean isCheckboxChecked(int checkboxNumber) {
-        List <WebElement> checkboxes = driver.findElements(checkboxLocator);
-        WebElement targetCheckbox = checkboxes.get(checkboxNumber - 1);
+        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
         return targetCheckbox.isSelected();
     }
 
-
     public void changeCheckboxState(int checkboxNumber) {
         Allure.step(String.format("Change checkbox %d state", checkboxNumber));
-        List <WebElement> checkboxes = driver.findElements(checkboxLocator);
-        WebElement targetCheckbox = checkboxes.get(checkboxNumber - 1);
+        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
         targetCheckbox.click();
     }
 
-
     @Step("Make Checkbox {checkboxNumber} active")
     public void makeCheckboxActive(int checkboxNumber) {
-        List <WebElement> checkboxes = driver.findElements(checkboxLocator);
-        WebElement targetCheckbox = checkboxes.get(checkboxNumber - 1);
-        Actions actions = new Actions(driver);
-        int attempts = 0;
-        while(!driver.switchTo().activeElement().equals(targetCheckbox)
-                && attempts < 11) {
-            actions.sendKeys(Keys.TAB).perform();
-            attempts++;
-        }
+        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
+        this.focusElement(targetCheckbox);
     }
 
     public boolean isCheckboxActive(int checkboxNumber) {
-        List <WebElement> checkboxes = driver.findElements(checkboxLocator);
-        WebElement targetCheckbox = checkboxes.get(checkboxNumber - 1);
-        WebElement focused = driver.switchTo().activeElement();
-        return focused.equals(targetCheckbox);
-    }
+        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
+        return this.isElementActive(targetCheckbox);
+        }
 
     @Step("Change Checkbox {checkboxNumber} state via keyboard key Space")
     public void changeCheckboxStateViaKeyboardKeySpace(int checkboxNumber) {
-        List <WebElement> checkboxes = driver.findElements(checkboxLocator);
-        WebElement targetCheckbox = checkboxes.get(checkboxNumber - 1);
+        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
         pressKey(Keys.SPACE, targetCheckbox);
     }
-
-
-
-
 
 }

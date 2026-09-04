@@ -3,12 +3,14 @@ package pages;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class BasePage {
 
@@ -25,6 +27,16 @@ public abstract class BasePage {
     protected WebElement find(By locator) {
         logger.debug("Find element: {}", locator);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    protected List<WebElement> findElements(By locator) {
+        logger.debug("Find elements: {}", locator);
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+    }
+
+    protected WebElement findElementByNumber(By locator, int number) {
+        List<WebElement> elements = this.findElements(locator);
+        return elements.get(number - 1);
     }
 
     @Step("Click on: '{elementName}'")
@@ -104,4 +116,21 @@ public abstract class BasePage {
         element.sendKeys(key);
     }
 
-}
+    public void focusElement(WebElement targetElement) {
+            Actions actions = new Actions(driver);
+            int attempts = 0;
+            while(!driver.switchTo().activeElement().equals(targetElement)
+                    && attempts < 11) {
+                actions.sendKeys(Keys.TAB).perform();
+                attempts++;
+            }
+    }
+
+    public boolean isElementActive(WebElement targetElement) {
+        WebElement focused = driver.switchTo().activeElement();
+        return focused.equals(targetElement);
+    }
+
+    }
+
+

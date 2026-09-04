@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class DropdownPage extends BasePage {
 
     @Step("Get amount Of available value for selection")
     public int amountOfAvailableDropdownOptions() {
-        List<WebElement> dropdownOptions = driver.findElements(optionsLocator);
+        List<WebElement> dropdownOptions = this.findElements(optionsLocator);
         int dropdownSize = dropdownOptions.size();
         logger.info("amountOfAvailableDropdownOptions: {}", dropdownSize);
         Allure.step("Amount is: " + dropdownSize);
@@ -44,7 +43,7 @@ public class DropdownPage extends BasePage {
     @Step("Is specific value displayed")
     public boolean isSpecificOptionDisplayed(String optionTitle) {
         boolean result = false;
-        List<WebElement> optionsAr = driver.findElements(optionsLocator);
+        List<WebElement> optionsAr = this.findElements(optionsLocator);
         for (WebElement el : optionsAr) {
             String optionText = el.getText();
             if (optionText.equals(optionTitle) ) {
@@ -70,20 +69,14 @@ public class DropdownPage extends BasePage {
 
     @Step("Make dropdown active")
     public void makeDropdownActive() {
-        Actions actions = new Actions(driver);
-        int attempts = 0;
-        while(!driver.switchTo().activeElement().equals(find(dropdownLocator))
-                && attempts < 11) {
-            actions.sendKeys(Keys.TAB).perform();
-            attempts++;
+        WebElement targetDropdown = this.find(dropdownLocator);
+        this.focusElement(targetDropdown);
         }
-    }
 
     @Step("Is dropdown active")
     public boolean isDropdownActive() {
-        WebElement focused = driver.switchTo().activeElement();
-        WebElement dropdown = find(dropdownLocator);
-        return focused.equals(dropdown);
+        WebElement targetDropdown = find(dropdownLocator);
+        return this.isElementActive(targetDropdown);
     }
 
     public void pressEnter() {
@@ -93,7 +86,6 @@ public class DropdownPage extends BasePage {
     public void pressEscape() {
         pressKey(Keys.ESCAPE, dropdownLocator);
     }
-
 
 
 }
