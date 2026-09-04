@@ -63,17 +63,17 @@ jobs:
     needs: test
     if: always()
 
-  permissions:
-    pages: write
-    id-token: write
+    permissions:
+      pages: write
+      id-token: write
 
-  environment:
-    name: github-pages
-    url: ${{ steps.deployment.outputs.page_url }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  steps:
+    steps:
     - name: Deploy Allure Report to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
