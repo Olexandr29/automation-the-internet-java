@@ -55,14 +55,13 @@ jobs:
 
       - name: Upload Allure Report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v4
         with:
-          name: allure-report
           path: allure-report
 
-deploy:
-  needs: test
-  if: always()
+  deploy:
+    needs: test
+    if: always()
 
   permissions:
     pages: write
