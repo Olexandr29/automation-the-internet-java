@@ -1,7 +1,5 @@
 package pages;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +14,7 @@ public class CheckboxPage extends BasePage {
 
     public boolean isCheckboxVisible(int checkboxNumber) {
         WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
-        return isVisible(targetCheckbox,  String.format("The Checkbox'%d'", checkboxNumber) );
+        return isVisible(targetCheckbox,  String.format("Checkbox %d", checkboxNumber) );
     }
 
     public boolean isCheckboxChecked(int checkboxNumber) {
@@ -25,15 +23,19 @@ public class CheckboxPage extends BasePage {
     }
 
     public void changeCheckboxState(int checkboxNumber) {
-        Allure.step(String.format("Change checkbox %d state", checkboxNumber));
-        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
-        targetCheckbox.click();
+        String description = String.format("Change the 'Checkbox %d' state", checkboxNumber);
+        step(description, () -> {
+            WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
+            targetCheckbox.click();
+        });
     }
 
-    @Step("Make Checkbox {checkboxNumber} active")
     public void makeCheckboxActive(int checkboxNumber) {
-        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
-        this.focusElement(targetCheckbox);
+        String description = String.format("Make the 'Checkbox {checkboxNumber}' active");
+        step(description, () -> {
+            WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
+            this.focusElement(targetCheckbox);
+        });
     }
 
     public boolean isCheckboxActive(int checkboxNumber) {
@@ -41,10 +43,12 @@ public class CheckboxPage extends BasePage {
         return this.isElementActive(targetCheckbox);
         }
 
-    @Step("Change Checkbox {checkboxNumber} state via keyboard key Space")
     public void changeCheckboxStateViaKeyboardKeySpace(int checkboxNumber) {
-        WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
-        pressKey(Keys.SPACE, targetCheckbox);
+        String description = String.format("Change the 'Checkbox {checkboxNumber}' state via keyboard key Space");
+        step(description, () -> {
+            WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
+            pressKey(Keys.SPACE, targetCheckbox);
+        });
     }
 
 }

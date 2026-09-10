@@ -27,9 +27,9 @@ public class CheckboxTest extends BaseTest {
 
     @Test
     public void TC32VerifyCheckboxesInitialState() {
-        Allure.step("Observe the initial state of Checkbox 1");
+        Allure.step("Observe the initial state of the 'Checkbox 1'");
         assertEquals(checkboxPage.isCheckboxChecked(1), CheckboxData.CHECKBOX_1_DEFAULT_CHECKED_STATE, String.format("The %s is not unchecked", CheckboxData.CHECKBOX_1));
-        Allure.step("Observe the initial state of Checkbox 2");
+        Allure.step("Observe the initial state of the 'Checkbox 2'");
         assertEquals(checkboxPage.isCheckboxChecked(2), CheckboxData.CHECKBOX_2_DEFAULT_CHECKED_STATE, String.format("The %s is not checked", CheckboxData.CHECKBOX_2));
     }
 

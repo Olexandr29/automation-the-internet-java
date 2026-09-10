@@ -31,7 +31,7 @@ public class DropdownPage extends BasePage {
         return selectedValue;
     }
 
-    @Step("Get amount Of available value for selection")
+    @Step("Get amount of available value for selection")
     public int amountOfAvailableDropdownOptions() {
         List<WebElement> dropdownOptions = this.findElements(optionsLocator);
         int dropdownSize = dropdownOptions.size();
