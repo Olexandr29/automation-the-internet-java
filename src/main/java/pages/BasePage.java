@@ -50,15 +50,14 @@ public abstract class BasePage {
     }
 
     protected void clickElement(By locator, String elementName) {
-        String description = String.format("Click on: '%s'", elementName);
+        String description = String.format("Click on the: '%s'", elementName);
         try {
-            step(description, () -> {
+                logger.debug(description);
                 WebElement element = this.find(locator);
                 element.click();
                 logger.debug("'{}' clicked successfully", elementName);
-            });
         } catch (Exception e) {
-            logger.error("Cannot click on '{}'", elementName, e);
+            logger.error("Cannot click on the '{}'", elementName, e);
             throw e;
         }
     }
@@ -131,6 +130,27 @@ public abstract class BasePage {
 
     public void pressKey(Keys key, WebElement element) {
         element.sendKeys(key);
+    }
+
+    public void refreshPage() {
+        String description = "Refresh the page";
+        step(description, () -> {
+            driver.navigate().refresh();
+        });
+    }
+
+    public void navigateBack() {
+        String description = "Click the browser Back button";
+        step(description, () -> {
+            driver.navigate().back();
+        });
+    }
+
+    public void navigateForward() {
+        String description = "Click the browser Forward button";
+        step(description, () -> {
+            driver.navigate().forward();
+        });
     }
 
     public void focusElement(WebElement targetElement) {

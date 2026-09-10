@@ -31,7 +31,7 @@ public class CheckboxPage extends BasePage {
     }
 
     public void makeCheckboxActive(int checkboxNumber) {
-        String description = String.format("Make the 'Checkbox {checkboxNumber}' active");
+        String description = String.format("Make the 'Checkbox %s}' active", checkboxNumber);
         step(description, () -> {
             WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
             this.focusElement(targetCheckbox);
@@ -44,7 +44,7 @@ public class CheckboxPage extends BasePage {
         }
 
     public void changeCheckboxStateViaKeyboardKeySpace(int checkboxNumber) {
-        String description = String.format("Change the 'Checkbox {checkboxNumber}' state via keyboard key Space");
+        String description = String.format("Change the 'Checkbox %s' state via keyboard key Space", checkboxNumber);
         step(description, () -> {
             WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
             pressKey(Keys.SPACE, targetCheckbox);
