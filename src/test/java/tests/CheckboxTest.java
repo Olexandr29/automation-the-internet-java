@@ -2,6 +2,7 @@ package tests;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CheckboxPage;
@@ -15,9 +16,11 @@ public class CheckboxTest extends BaseTest {
     private CheckboxPage checkboxPage;
 
     @BeforeMethod(alwaysRun = true, dependsOnMethods = "setUp")
+    @Step("Open the Checkbox page")
     public void openCheckboxPage() {
         checkboxPage = homePage.openCheckboxPage();
     }
+
     @Test(groups = {"smoke"})
     public void TC31VerifyCheckboxesAreVisible() {
         assertEquals(driver.getCurrentUrl(), CheckboxData.CHECKBOX_PAGE_URL, "The Checkbox page is not opened");
