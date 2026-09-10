@@ -2,6 +2,7 @@ package tests;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CheckboxPage;
@@ -15,9 +16,11 @@ public class CheckboxTest extends BaseTest {
     private CheckboxPage checkboxPage;
 
     @BeforeMethod(alwaysRun = true, dependsOnMethods = "setUp")
+    @Step("Open the Checkbox page")
     public void openCheckboxPage() {
         checkboxPage = homePage.openCheckboxPage();
     }
+
     @Test(groups = {"smoke"})
     public void TC31VerifyCheckboxesAreVisible() {
         assertEquals(driver.getCurrentUrl(), CheckboxData.CHECKBOX_PAGE_URL, "The Checkbox page is not opened");
@@ -27,9 +30,9 @@ public class CheckboxTest extends BaseTest {
 
     @Test
     public void TC32VerifyCheckboxesInitialState() {
-        Allure.step("Observe the initial state of Checkbox 1");
+        Allure.step("Observe the initial state of the 'Checkbox 1'");
         assertEquals(checkboxPage.isCheckboxChecked(1), CheckboxData.CHECKBOX_1_DEFAULT_CHECKED_STATE, String.format("The %s is not unchecked", CheckboxData.CHECKBOX_1));
-        Allure.step("Observe the initial state of Checkbox 2");
+        Allure.step("Observe the initial state of the 'Checkbox 2'");
         assertEquals(checkboxPage.isCheckboxChecked(2), CheckboxData.CHECKBOX_2_DEFAULT_CHECKED_STATE, String.format("The %s is not checked", CheckboxData.CHECKBOX_2));
     }
 
@@ -50,8 +53,7 @@ public class CheckboxTest extends BaseTest {
         checkboxPage.changeCheckboxState(1);
         assertTrue(checkboxPage.isCheckboxChecked(1), String.format("The %s is not checked", CheckboxData.CHECKBOX_1));
         assertTrue(checkboxPage.isCheckboxChecked(2), String.format("The %s is not checked", CheckboxData.CHECKBOX_2));
-        Allure.step("Click the browser Refresh button");
-        driver.navigate().refresh();
+        checkboxPage.refreshPage();
         assertEquals(checkboxPage.isCheckboxChecked(1), CheckboxData.CHECKBOX_1_DEFAULT_CHECKED_STATE, String.format("The is not unchecked after refresh", CheckboxData.CHECKBOX_1));
         assertEquals(checkboxPage.isCheckboxChecked(2), CheckboxData.CHECKBOX_2_DEFAULT_CHECKED_STATE, String.format("The is not checked after refresh", CheckboxData.CHECKBOX_2));
     }
