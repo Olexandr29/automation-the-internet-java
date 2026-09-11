@@ -71,6 +71,7 @@
             <version>${aspectj.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-java-commons</artifactId>
@@ -89,12 +90,12 @@
                 <version>3.2.2</version>
 
                 <configuration>
-<!--                    <properties>-->
-<!--                        <property>-->
-<!--                            <name>listener</name>-->
-<!--                            <value>listeners.ScreenshotListener</value>-->
-<!--                        </property>-->
-<!--                    </properties>-->
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>listeners.ScreenshotListener</value>
+                        </property>
+                    </properties>
 
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
