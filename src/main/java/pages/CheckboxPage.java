@@ -31,7 +31,7 @@ public class CheckboxPage extends BasePage {
     }
 
     public void makeCheckboxActive(int checkboxNumber) {
-        String description = String.format("Make the 'Checkbox %s}' active", checkboxNumber);
+        String description = String.format("Make the 'Checkbox %s' active", checkboxNumber);
         step(description, () -> {
             WebElement targetCheckbox = this.findElementByNumber(checkboxLocator, checkboxNumber);
             this.focusElement(targetCheckbox);
