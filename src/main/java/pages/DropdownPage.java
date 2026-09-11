@@ -1,7 +1,5 @@
 package pages;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -26,37 +24,38 @@ public class DropdownPage extends BasePage {
     public String getSelectedDropdownText() {
         Select dropdown = new Select(find(dropdownLocator));
         String selectedValue = dropdown.getFirstSelectedOption().getText();
-        logger.info("Selected option: {}", selectedValue);
-        Allure.step("Get the Selected value. Selected is:" + selectedValue);
+        logger.info("Selected option is: {}", selectedValue);
         return selectedValue;
     }
 
-    @Step("Get amount Of available value for selection")
     public int amountOfAvailableDropdownOptions() {
         List<WebElement> dropdownOptions = this.findElements(optionsLocator);
         int dropdownSize = dropdownOptions.size();
-        logger.info("amountOfAvailableDropdownOptions: {}", dropdownSize);
-        Allure.step("Amount is: " + dropdownSize);
+        logger.info("amountOfAvailableDropdownOptions are: {}", dropdownSize);
         return dropdownSize;
     }
 
-    @Step("Is specific value displayed")
     public boolean isSpecificOptionDisplayed(String optionTitle) {
-        boolean result = false;
-        List<WebElement> optionsAr = this.findElements(optionsLocator);
-        for (WebElement el : optionsAr) {
-            String optionText = el.getText();
-            if (optionText.equals(optionTitle) ) {
-                result = el.isDisplayed();
+        String description = String.format("Observe the '%s' is displayed", optionTitle);
+        return step(description, () -> {
+            boolean result = false;
+            List<WebElement> optionsAr = this.findElements(optionsLocator);
+            for (WebElement el : optionsAr) {
+                String optionText = el.getText();
+                if (optionText.equals(optionTitle) ) {
+                    result = el.isDisplayed();
+                }
             }
-        }
         return result;
+        });
     }
 
-    @Step("select specific value: '{optionTitle}'")
     public void selectSpecificOption(String optionTitle) {
-        Select dropdown = new Select(find(dropdownLocator));
-        dropdown.selectByVisibleText(optionTitle);
+        String description = String.format("Select the: '%s'", optionTitle);
+        step(description, () -> {
+            Select dropdown = new Select(find(dropdownLocator));
+            dropdown.selectByVisibleText(optionTitle);
+        });
     }
 
     public void pressArrowDown() {
@@ -67,13 +66,14 @@ public class DropdownPage extends BasePage {
         pressKey(Keys.ARROW_UP, dropdownLocator);
     }
 
-    @Step("Make dropdown active")
     public void makeDropdownActive() {
-        WebElement targetDropdown = this.find(dropdownLocator);
-        this.focusElement(targetDropdown);
+        String description = "Make the 'Dropdown' active";
+        step(description, () -> {
+            WebElement targetDropdown = this.find(dropdownLocator);
+            this.focusElement(targetDropdown);
+        });
         }
 
-    @Step("Is dropdown active")
     public boolean isDropdownActive() {
         WebElement targetDropdown = find(dropdownLocator);
         return this.isElementActive(targetDropdown);
