@@ -25,9 +25,9 @@ public class DropdownTest extends BaseTest {
 
     @Test(groups = {"smoke"})
     public void TC21DropdownDefaultState() {
-        Allure.step("Observe the default selected option");
         assertEquals(driver.getCurrentUrl(), DropdownData.URL_DROPDOWN_PAGE, "The Dropdown page should be opened.");
         assertTrue(dropdownPage.isDropdownVisible(), "The dropdown should be visible.");
+        Allure.step("Observe the default selected option");
         assertEquals(dropdownPage.getSelectedDropdownText(), DropdownData.OPTION_DEFAULT, String.format("The default selected value should be %s", DropdownData.OPTION_DEFAULT));
     }
 
