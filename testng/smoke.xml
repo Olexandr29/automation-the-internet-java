@@ -22,6 +22,10 @@
 <!--        </classes>-->
 
     </test>
+    
+<!--    <listeners>-->
+<!--        <listener class-name="listeners.ScreenshotListener"></listener>-->
+<!--    </listeners>-->
 
 </suite>
 

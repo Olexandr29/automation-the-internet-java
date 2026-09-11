@@ -14,11 +14,17 @@ import java.lang.reflect.Method;
 public class BaseTest {
     protected static final String URL_HOME_PAGE = "https://the-internet.herokuapp.com/";
 
-    protected WebDriver driver;
     protected HomePage homePage;
+
+    protected WebDriver driver;
+
+    public WebDriver getDriver() {
+        return driver;
+    }
 
     protected final Logger logger =
             LoggerFactory.getLogger(getClass());
+
 
     @BeforeMethod(alwaysRun = true)
     public void setUp(Method method, Object[] testData) {

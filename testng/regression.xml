@@ -4,6 +4,10 @@
 
 <suite name="Regression Suite">
 
+<!--    <listeners>-->
+<!--        <listener class-name="listeners.ScreenshotListener"></listener>-->
+<!--    </listeners>-->
+
     <test name="Regression Tests">
 
         <groups>
