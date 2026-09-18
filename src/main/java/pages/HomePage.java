@@ -8,9 +8,9 @@ public class HomePage extends  BasePage {
     private final By loginLink = By.linkText("Form Authentication");
     private final By dropdownLink = By.linkText("Dropdown");
     private final By checkboxLink = By.linkText("Checkboxes");
+    private final By brokenImagesLink = By.linkText("Broken Images");
 
     public HomePage(WebDriver driver) {
-
         super(driver);
     }
 
@@ -25,8 +25,13 @@ public class HomePage extends  BasePage {
     }
 
     public CheckboxPage openCheckboxPage() {
-        clickElement(checkboxLink, "checkboxLink");
+        clickElement(checkboxLink, "CheckboxLink");
         return new CheckboxPage(driver);
+    }
+
+    public BrokenImagesPage openBrokenImagesPage() {
+        clickElement(brokenImagesLink, "Broken Images Link");
+        return new BrokenImagesPage(driver);
     }
 
     public boolean isDropdownLinkVisible() {

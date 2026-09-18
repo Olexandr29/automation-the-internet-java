@@ -69,9 +69,9 @@ public abstract class BasePage {
         return text;
     }
 
-    @Step("Observe the visibility of '{elementName}'")
+    @Step("Observe the visibility of the '{elementName}'")
     protected boolean isVisible(By locator, String elementName) {
-        logger.info("Observe the visibility of {}", elementName);
+        logger.info("Observe the visibility of the {}", elementName);
 
         try {
             return this.find(locator).isDisplayed();
@@ -81,9 +81,9 @@ public abstract class BasePage {
         }
     }
 
-    @Step("Observe the visibility of '{elementName}'")
+    @Step("Observe the visibility of the '{elementName}'")
     protected boolean isVisible(WebElement element, String elementName) {
-        logger.info("Observe the visibility of {}", elementName);
+        logger.info("Observe the visibility of the {}", elementName);
 
         try {
             return element.isDisplayed();
