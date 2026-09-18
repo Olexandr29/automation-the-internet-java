@@ -47,12 +47,17 @@ public class BrokenImagesPage extends BasePage {
     public boolean isLinkVisible(){
         return isVisible(linkLocator, "Footer Link");
     }
-
-
-
-
-
-
+    
+    public boolean isImageLoaded(int imageNumber) {
+        WebElement targetImage = this.findElementByNumber(imagesLocator, imageNumber);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return (Boolean) js.executeScript(
+                "return " +
+                        "arguments[0].complete " +
+                        "&& " +
+                        "arguments[0].naturalWidth > 0;",
+                targetImage);
+    }
 
 
     }

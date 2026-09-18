@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import pages.BrokenImagesPage;
 
 import static org.testng.Assert.*;
+import org.testng.asserts.SoftAssert;
 
 public class BrokenImagesTest extends BaseTest {
     private BrokenImagesPage brokenImagesPage;
@@ -27,7 +28,14 @@ public class BrokenImagesTest extends BaseTest {
         assertTrue(brokenImagesPage.isLinkVisible(), "The \"Elemental Selenium\" link is not displayed");
     }
 
-
+    @Test
+    public void TC37VerifyImageLoading() {
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(brokenImagesPage.isImageLoaded(1), "The first image is broken or not loaded.");
+        softAssert.assertTrue(brokenImagesPage.isImageLoaded(2), "The second image is broken or not loaded.");
+        softAssert.assertTrue(brokenImagesPage.isImageLoaded(3), "The third image is broken or not loaded.");
+        softAssert.assertAll();
+    }
 
 
     }
