@@ -28,7 +28,7 @@ public class BrokenImagesPage extends BasePage {
 
     public int getImagesAmount() {
         List<WebElement> images = findElements(imagesLocator);
-        logger.info("images size = {}", images.size() );
+        logger.info("The amount of images are = {}", images.size() );
         return images.size();
         }
 
@@ -49,6 +49,8 @@ public class BrokenImagesPage extends BasePage {
     }
     
     public boolean isImageLoaded(int imageNumber) {
+        String description = String.format("Observe the 'Image %d' is loaded correctly", imageNumber);
+        return step(description, () -> {
         WebElement targetImage = this.findElementByNumber(imagesLocator, imageNumber);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return (Boolean) js.executeScript(
@@ -57,6 +59,7 @@ public class BrokenImagesPage extends BasePage {
                         "&& " +
                         "arguments[0].naturalWidth > 0;",
                 targetImage);
+        });
     }
 
 
