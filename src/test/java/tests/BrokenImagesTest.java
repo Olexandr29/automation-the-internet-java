@@ -32,9 +32,9 @@ public class BrokenImagesTest extends BaseTest {
     @Test
     public void TC37VerifyImageLoading() {
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(brokenImagesPage.isImageLoaded(3), "The third image is broken or not loaded.");
-        softAssert.assertTrue(brokenImagesPage.isImageLoaded(1), "The first image is broken or not loaded.");
-        softAssert.assertTrue(brokenImagesPage.isImageLoaded(2), "The second image is broken or not loaded.");
+        softAssert.assertTrue(brokenImagesPage.isImageLoadedCorrectly(3), "The third image is broken or not loaded.");
+        softAssert.assertTrue(brokenImagesPage.isImageLoadedCorrectly(2), "The second image is broken or not loaded.");
+        softAssert.assertTrue(brokenImagesPage.isImageLoadedCorrectly(1), "The first image is broken or not loaded.");
         softAssert.assertAll();
     }
 
