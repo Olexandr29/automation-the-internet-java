@@ -168,6 +168,19 @@ public abstract class BasePage {
         return focused.equals(targetElement);
     }
 
+    public boolean isElementLoadedCorrectly(String elementName, WebElement targetElement) {
+        String description = String.format("Observe the '%s' is loaded correctly", elementName);
+        return step(description, () -> {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            return (Boolean) js.executeScript(
+                    "return " +
+                            "arguments[0].complete " +
+                            "&& " +
+                            "arguments[0].naturalWidth > 0;",
+                    targetElement);
+        });
+    }
+
 }
 
 
