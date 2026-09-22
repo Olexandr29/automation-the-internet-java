@@ -15,9 +15,9 @@ on:
     workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
+#  pages: write
+#  id-token: write
 
 jobs:
   test:
@@ -36,44 +36,63 @@ jobs:
       - name: Run tests via Maven with integrated Allure
         run: mvn clean test
 
-      - name: Upload Allure Results
+      - name: Load Allure History
+        uses: actions/checkout@v4
         if: always()
-        uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
-          name: allure-results
-          path: target/allure-results
+          ref: gh-pages
+          path: gh-pages
+
+#      - name: Upload Allure Results
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: allure-results
+#          path: target/allure-results
 
       - name: Generate Allure Report
         if: always()
         uses: simple-elf/allure-report-action@master
         with:
           allure_results: target/allure-results
+          gh_pages: gh-pages
+          allure_history: allure-history
 
-      - name: Setup GitHub Pages
+      - name: Publish Allure Report
         if: always()
-        uses: actions/configure-pages@v5
-
-      - name: Upload Allure Report
-        if: always()
-        uses: actions/upload-pages-artifact@v4
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: allure-report
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
 
-  deploy:
-    needs: test
-    if: always()
+#      - name: Setup GitHub Pages
+#        if: always()
+#        uses: actions/configure-pages@v5
+#
+#      - name: Upload Allure Report
+#        if: always()
+#        uses: actions/upload-pages-artifact@v4
+#        with:
+#          path: allure-report
 
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Deploy Allure Report to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+#  deploy:
+#    needs: test
+#    if: always()
+#
+#    permissions:
+#      contents: read
+#      pages: write
+#      id-token: write
+#
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - name: Deploy Allure Report to GitHub Pages
+#      id: deployment
+#      uses: actions/deploy-pages@v4
