@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BrokenImagesPage;
@@ -8,6 +9,8 @@ import testData.BrokenImagesData;
 import static org.testng.Assert.*;
 import org.testng.asserts.SoftAssert;
 
+@Feature("Broken Images")
+@Test(groups = {"smoke"})
 public class BrokenImagesTest extends BaseTest {
     private BrokenImagesPage brokenImagesPage;
 
