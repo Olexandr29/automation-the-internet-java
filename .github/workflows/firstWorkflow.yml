@@ -36,6 +36,25 @@ jobs:
       - name: Run tests via Maven with integrated Allure
         run: mvn clean test
 
+      - name: Create Allure environment information
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p target/allure-results
+
+          JAVA_VERSION=$(java -version 2>&1 | head -n 1)
+
+          cat > target/allure-results/environment.properties <<EOF
+          Execution=GitHub Actions
+          OS=Linux
+          Java=${JAVA_VERSION}
+          Browser=Chrome
+          Repository=${GITHUB_REPOSITORY}
+          Branch=${GITHUB_REF_NAME}
+          Run.Number=${GITHUB_RUN_NUMBER}
+          Workflow=${GITHUB_WORKFLOW}
+          EOF
+
       - name: Load Allure History
         uses: actions/checkout@v5
         if: always()

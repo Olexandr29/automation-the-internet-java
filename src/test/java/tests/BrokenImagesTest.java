@@ -10,7 +10,7 @@ import static org.testng.Assert.*;
 import org.testng.asserts.SoftAssert;
 
 @Feature("Broken Images")
-@Test(groups = {"smoke"})
+@Test(groups = {"smokemvn "})
 public class BrokenImagesTest extends BaseTest {
     private BrokenImagesPage brokenImagesPage;
 
