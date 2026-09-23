@@ -1,3 +1,7 @@
+[![pages-build-deployment](https://github.com/Olexandr29/automation-the-internet-java/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Olexandr29/automation-the-internet-java/actions/workflows/pages/pages-build-deployment)
+
+[![Run Java tests on Linux](https://github.com/Olexandr29/automation-the-internet-java/actions/workflows/firstWorkflow.yml/badge.svg)](https://github.com/Olexandr29/automation-the-internet-java/actions/workflows/firstWorkflow.yml)
+
 # Java UI Test Automation Framework for the Internet
 
 ## Project Purpose
