@@ -18,47 +18,45 @@ The project follows the Page Object Model (POM) approach to separate test scenar
 
 The repository is organized as a Maven-based Java UI test automation framework.
 
-```
-automation-the-internet-java
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │    └─ pages/      # Page Object classes 
-│   │   └── resources/      # Main project resources
-│   └── test/
-│       ├── java/
-│       │    ├─ testData/   # Test data  
-│       │    └── tests/     # Test classes
-│       └── resources/      # Test resources
-├── .github/
-│    └──workflows/          # GitHub Actions workflow
-├── testng/                 # TestNG suite configurations
-│    ├─ smoke.xml   
-│    ├─ regression.xml  
-│    └─ specificFeatureSuite.xml     
-├── scripts/                # Project automation scripts
-│    └── generate-allure-report.ps1
-├── docs/                   # Project documentation
-│    └── architecture.md
+```text
+automation-the-internet-java> tree
+├───.github/
+│   └───workflows/          # GitHub Actions workflow
+├───docs/                   # Project documentation
+├───scripts/                # Project automation scripts
+├───src/
+│   ├───main/
+│   │   ├───java/
+│   │   │   └───pages/      # Page Object classes
+│   │   └───resources/      # Main project resources
+│   └───test/
+│       ├───java/
+│       │   ├───listeners/  # TestNG listeners
+│       │   ├───testData/   # Test data  
+│       │   └───tests/      # Test classes
+│       └───resources/      # Test resources
+├───testng/                 # TestNG suite configurations
 ├── .gitignore              # Specifies files and directories ignored by Git 
 ├── pom.xml                 # Maven project configuration
 └── README.md               # Project overview and usage instructions
+
 ```
 
 Main Directories and Files
 
-| Directory / File         | Responsibility                                                                                                             |
-|--------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `src/main/java/pages/`   | Contains Page Object classes responsible for page-specific UI interactions.                                                |
-| `src/test/java/tests/`   | Contains automated test classes that define test scenarios and assertions.                                                 |
-| `src/test/java/testData/`| Contains test data used by automated tests.                                                                                |
-| `.github/workflows/`     | Contains GitHub Actions workflow definitions for test execution and reporting automation.                                  |
-| `testng/`                | Contains TestNG suite configuration files for different test execution scopes.                                             |
-| `scripts/`               | Contains project automation scripts, including the script for generating an Allure report locally with history and trends. |
-| `docs/`                  | Contains project documentation, including architecture documentation.                                                      |
-| `pom.xml`                | Defines Maven project configuration and dependencies.                                                                      |
-| `.gitignore`             | Specifies files and directories that should not be tracked by Git.                                                         |
-| `README.md`              | Contains the project overview, technology stack, structure, and usage instructions.                                        |
+| Directory / File              | Responsibility                                                                                                             |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| `src/main/java/pages/`        | Contains Page Object classes responsible for page-specific UI interactions.                                                |
+| `src/test/java/tests/`        | Contains automated test classes that define test scenarios and assertions.                                                 |
+| `src/test/java/testData/`     | Contains test data used by automated tests.                                                                                |
+| `src/test/java/listeners/`    | Contains TestNG listeners to capture screenshots when a test method fails.                                         |
+| `.github/workflows/`          | Contains GitHub Actions workflow definitions for test execution and reporting automation.                                  |
+| `testng/`                     | Contains TestNG suite configuration files for different test execution scopes.                                             |
+| `scripts/`                    | Contains project automation scripts, including the script for generating an Allure report locally with history and trends. |
+| `docs/`                       | Contains project documentation, including architecture documentation.                                                      |
+| `pom.xml`                     | Defines Maven project configuration and dependencies.                                                                      |
+| `.gitignore`                  | Specifies files and directories that should not be tracked by Git.                                                         |
+| `README.md`                   | Contains the project overview, technology stack, structure, and usage instructions.                                        |
 
 </details>
 
@@ -131,7 +129,7 @@ Its responsibilities include:
 * Initializing the `HomePage` object;
 * Closing the browser after each test method.
 
-The `BaseTest.setUp()` method initializes the browser and opens the application home page before each test methods. A test-specific `@BeforeMethod` then opens the required page throught the corresponding Page Object. The `@AfterMethod` method closes the WebDriver session after test execution.
+The `BaseTest.setUp()` method initializes the browser and opens the application home page before each test methods. A test-specific `@BeforeMethod` then opens the required page through the corresponding Page Object. The `@AfterMethod` method closes the WebDriver session after test execution.
 
 The browser configuration changes depending on the execution environment. When the `GITHUB_ACTIONS` environment variable is set to `true`, Chrome runs in headless mode with additional options intended for CI execution.
 
@@ -165,6 +163,20 @@ The listener performs the following operations:
 5. Attaches the screenshot to the Allure report.
 
 The listener separates failure screenshot handling from individual test classes and Page Objects. This allows screenshots to be captured consistently for failed test methods without adding screenshot logic to each test scenario.
+
+4Allure Reporting
+
+Allure is used to collect test execution results, steps, and failure screenshots.
+
+Allure results are stored in `target/allure-results`, as configured in
+`src/test/resources/allure.properties`.
+
+Local reporting is handled by `scripts/generate-allure-report.ps1`,
+which runs tests, creates execution metadata, restores report history,
+and generates the Allure report.
+
+In GitHub Actions, the workflow generates the Allure report and publishes
+the report history to the `gh-pages` branch.
 
 ```text
 TestNG Test Method
