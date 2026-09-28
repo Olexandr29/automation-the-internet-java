@@ -47,9 +47,11 @@ Main Directories and Files
 | Directory / File              | Responsibility                                                                                                             |
 |-------------------------------|----------------------------------------------------------------------------------------------------------------------------|
 | `src/main/java/pages/`        | Contains Page Object classes responsible for page-specific UI interactions.                                                |
+| `src/main/resources/logback.xml`| Configures Logback console logging, including the root log level and log message format.                                 | 
 | `src/test/java/tests/`        | Contains automated test classes that define test scenarios and assertions.                                                 |
 | `src/test/java/testData/`     | Contains test data used by automated tests.                                                                                |
-| `src/test/java/listeners/`    | Contains TestNG listeners to capture screenshots when a test method fails.                                         |
+| `src/test/java/listeners/`    | Contains TestNG listeners to capture screenshots when a test method fails.                                                 |
+| `src/test/resources/allure.properties`| Configures the directory used to store Allure test results.                                                        |
 | `.github/workflows/`          | Contains GitHub Actions workflow definitions for test execution and reporting automation.                                  |
 | `testng/`                     | Contains TestNG suite configuration files for different test execution scopes.                                             |
 | `scripts/`                    | Contains project automation scripts, including the script for generating an Allure report locally with history and trends. |
@@ -73,7 +75,7 @@ It provides shared functionality for:
 
 - WebDriver and explicit wait management;
 - Element location and visibility-based synchronization;
-- Reusable UI interactions, such as clicking and typing;
+- Reusable UI interactions, such as clicking, typing, etc.;
 - Keyboard and browser navigation operations;
 - Logging through SLF4J;
 - Allure step integration for test action reporting.
@@ -129,9 +131,18 @@ Its responsibilities include:
 * Initializing the `HomePage` object;
 * Closing the browser after each test method.
 
-The `BaseTest.setUp()` method initializes the browser and opens the application home page before each test methods. A test-specific `@BeforeMethod` then opens the required page through the corresponding Page Object. The `@AfterMethod` method closes the WebDriver session after test execution.
+The `BaseTest.setUp()` method initializes the browser and opens the application home page before each test methods. 
 
-The browser configuration changes depending on the execution environment. When the `GITHUB_ACTIONS` environment variable is set to `true`, Chrome runs in headless mode with additional options intended for CI execution.
+A test-specific `@BeforeMethod` then opens the required page through the corresponding Page Object. 
+
+The `@AfterMethod` method closes the WebDriver session after test execution.
+
+The browser configuration changes depending on the execution environment.
+
+| Execution environment | Browser behavior |
+|---|---|
+| Local | Chrome runs with incognito mode |
+| GitHub Actions | Chrome runs with incognito mode, headless mode, and additional Linux-oriented options |
 
 The `BaseTest` class also provides access to the active WebDriver instance through the `getDriver()` method, which is used by the screenshot listener.
 
@@ -164,20 +175,6 @@ The listener performs the following operations:
 
 The listener separates failure screenshot handling from individual test classes and Page Objects. This allows screenshots to be captured consistently for failed test methods without adding screenshot logic to each test scenario.
 
-4Allure Reporting
-
-Allure is used to collect test execution results, steps, and failure screenshots.
-
-Allure results are stored in `target/allure-results`, as configured in
-`src/test/resources/allure.properties`.
-
-Local reporting is handled by `scripts/generate-allure-report.ps1`,
-which runs tests, creates execution metadata, restores report history,
-and generates the Allure report.
-
-In GitHub Actions, the workflow generates the Allure report and publishes
-the report history to the `gh-pages` branch.
-
 ```text
 TestNG Test Method
 |
@@ -193,6 +190,21 @@ WebDriver Screenshot
 v
 Allure Attachment
 ```
+
+4) Allure Reporting
+
+Allure is used to collect test execution results, steps, and failure screenshots.
+
+Allure results are stored in `target/allure-results`, as configured in
+`src/test/resources/allure.properties`.
+
+Local reporting is handled by `scripts/generate-allure-report.ps1`,
+which runs tests, creates execution metadata, restores report history,
+and generates an Allure report.
+
+In GitHub Actions, the workflow generates the [Allure report](https://olexandr29.github.io/automation-the-internet-java/) and publishes
+the report history to the `gh-pages` branch.
+
 </details>
 
 
@@ -217,26 +229,6 @@ Initialize HomePage
 ↓
 driver.quit()
 ```
-
-```
-Test Layer 
-│ 
-▼ 
-Page Object Layer 
-│
-▼ 
-Utility / WebDriver Layer 
-│ 
-▼ 
-Browser 
-│ 
-▼ 
-Application Under Test
-```
-
-The common architecture separates test scenarios from UI interaction, reusable framework functionality, and test execution infrastructure.
-
-The implementation details of these layers are specific to each framework and are documented in their respective repositories.
 
 </details>
 
