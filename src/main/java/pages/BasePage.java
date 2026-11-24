@@ -181,6 +181,11 @@ public abstract class BasePage {
         });
     }
 
+    public boolean isPageLoaded() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return js.executeScript("return document.readyState").equals("complete");
+    }
+
 }
 
 
