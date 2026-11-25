@@ -1,16 +1,22 @@
 package tests;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.DynamicControlsPage;
-
-import static org.testng.Assert.*;
 import testData.DynamicControlsData;
+import static org.testng.Assert.*;
 
+@Test(groups = {"smoke"})
+@Feature("Dynamic Controls")
 public class DynamicControlsTest extends BaseTest {
+
     private DynamicControlsPage dynamicControlsPage;
 
     @BeforeMethod(alwaysRun = true, dependsOnMethods = "setUp")
+    @Step("Open the Dynamic Controls page")
     public void openDynamicControlsPage() {
         dynamicControlsPage = homePage.openDynamicControlsPage();
     }
@@ -31,4 +37,7 @@ public class DynamicControlsTest extends BaseTest {
         assertEquals(dynamicControlsPage.isCorrectSeleniumLinkDisplayed(DynamicControlsData.SELENIUM_LINK_TITLE), true, String.format("The correct link 's' should be displayed", DynamicControlsData.SELENIUM_LINK_TITLE));
         assertEquals(dynamicControlsPage.isCorrectSauceLabsLinkDisplayed(DynamicControlsData.SAUCE_LABS_LINK_TITLE), true, String.format("The correct link 's' should be displayed",DynamicControlsData.SAUCE_LABS_LINK_TITLE));
     }
+
+
+
 }

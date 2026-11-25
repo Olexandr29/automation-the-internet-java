@@ -72,17 +72,14 @@ public abstract class BasePage {
     }
 
     protected String getElementText(By locator, String elementName) {
-        String description = String.format("Get text from: '%s'", elementName);
-        return step(description, () -> {
             WebElement element = this.find(locator);
             String text = element.getText();
-            logger.info("{}: {}", elementName, text);
+            logger.info("The {} text is: {}", elementName, text);
             return text;
-        });
     }
 
     protected boolean isVisible(By locator, String elementName) {
-        String description = String.format("Observe the visibility of the '%s'", elementName);
+        String description = String.format("Observe the %s visibility", elementName);
         try {
             return step(description, () -> {
                 return this.find(locator).isDisplayed();
@@ -185,6 +182,13 @@ public abstract class BasePage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return js.executeScript("return document.readyState").equals("complete");
     }
+
+    public boolean isCorrectElementDisplayed(By locator, String elementName, String expectedFooter) {
+        String elementNameForAllure = elementName;
+        return (isVisible(locator, elementNameForAllure))
+                && (getElementText(locator, elementNameForAllure).equals(expectedFooter));
+    }
+
 
 }
 

@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+
 public class DynamicControlsPage extends BasePage {
     private final By headerLocator = By.tagName("h4");
     private final By paragraphLocator = By.tagName("p");
@@ -20,73 +21,48 @@ public class DynamicControlsPage extends BasePage {
         super(driver);
     }
 
-    public boolean isHeaderVisible() {
-        return isVisible(headerLocator, "Header");
-    }
-
-    public boolean isHeaderCorrect(String expectedHeader) {
-        String actualHeader = getElementText(headerLocator, "Header");
-        return actualHeader.equals(expectedHeader);
-    }
-
     public boolean isCorrectHeaderDisplayed(String expectedHeader) {
-        return (isHeaderVisible() && isHeaderCorrect(expectedHeader) );
+        return isCorrectElementDisplayed(headerLocator, "Header", expectedHeader);
     }
 
     public boolean isCorrectParagraphDisplayed(String expectedParagraph) {
-        return (isVisible(paragraphLocator, "Paragraph"))
-                && (getElementText(paragraphLocator, "Paragraph").equals(expectedParagraph));
+        return isCorrectElementDisplayed(paragraphLocator, "Paragraph", expectedParagraph);
     }
 
     public boolean isCorrectCheckboxSubheaderDisplayed(String expectedSubheader) {
-        return (isVisible(checkboxSubheaderLocator, "Checkbox subheader"))
-                && (getElementText(checkboxSubheaderLocator, "Checkbox subheader").equals(expectedSubheader));
+        return isCorrectElementDisplayed(checkboxSubheaderLocator, "Checkbox subheader",  expectedSubheader);
     }
 
     public boolean isCorrectCheckboxTitleDisplayed(String expectedCheckboxTitle) {
-        return (isVisible(checkboxLocator, "Checkbox title"))
-                && (getElementText(checkboxLocator, "Checkbox title").equals(expectedCheckboxTitle));
+        return isCorrectElementDisplayed(checkboxLocator, "Checkbox title", expectedCheckboxTitle);
     }
 
     public boolean isRemoveButtonDisplayed(String expectedButtonTitle) {
-        String titleforAllure = "Remove button";
-        return (isVisible(removeBtnLocator, titleforAllure))
-                && (getElementText(removeBtnLocator, titleforAllure).equals(expectedButtonTitle));
-    }
+        return isCorrectElementDisplayed(removeBtnLocator, "Remove button", expectedButtonTitle);
+                }
 
     public boolean isCorrectInputSubheaderDisplayed(String expectedSubheader) {
-        String titleforAllure = "Input Subheader";
-        return (isVisible(inputSubheaderLocator, titleforAllure))
-                && (getElementText(inputSubheaderLocator, titleforAllure).equals(expectedSubheader));
+        return isCorrectElementDisplayed(inputSubheaderLocator, "Input subheader", expectedSubheader);
     }
 
     public boolean isInputDisplayed() {
-        return isVisible(inputLocator, "Input Field");
+        return isVisible(inputLocator, "Input field");
     }
 
-
     public boolean isEnableButtonDisplayed(String expectedButtonTitle) {
-        String titleforAllure = "Enable button";
-        return (isVisible(enableBtnLocator, titleforAllure))
-                && (getElementText(enableBtnLocator, titleforAllure).equals(expectedButtonTitle));
+        return isCorrectElementDisplayed(enableBtnLocator, "Enable button", expectedButtonTitle);
     }
 
     public boolean isCorrectFooterDisplayed(String expectedFooter) {
-        String titleforAllure = "Footer";
-        return (isVisible(footerLocator, titleforAllure))
-                && (getElementText(footerLocator, titleforAllure).equals(expectedFooter));
+        return isCorrectElementDisplayed(footerLocator, "Footer", expectedFooter);
     }
 
     public boolean isCorrectSeleniumLinkDisplayed(String expectedLink) {
-        String titleforAllure = "Elemental Selenium";
-        return (isVisible(seleniumLinkLocator, titleforAllure))
-                && (getElementText(seleniumLinkLocator, titleforAllure).equals(expectedLink));
+        return isCorrectElementDisplayed(seleniumLinkLocator, "Elemental Selenium link", expectedLink);
     }
 
     public boolean isCorrectSauceLabsLinkDisplayed(String expectedLink) {
-        String titleforAllure = "Sauce Labs link";
-        return (isVisible(sauceLabsLinkLocator, titleforAllure))
-                && (getElementText(sauceLabsLinkLocator, titleforAllure).equals(expectedLink));
+       return isCorrectElementDisplayed(sauceLabsLinkLocator, "Sauce Labs link", expectedLink);
     }
 
 
