@@ -38,6 +38,16 @@ public class DynamicControlsTest extends BaseTest {
         assertEquals(dynamicControlsPage.isCorrectSauceLabsLinkDisplayed(DynamicControlsData.SAUCE_LABS_LINK_TITLE), true, String.format("The correct link 's' should be displayed",DynamicControlsData.SAUCE_LABS_LINK_TITLE));
     }
 
+    @Test
+    public void TC39VerifyCheckboxInitialStateAndChanges() {
+        Allure.step("Observe the Checkbox initial state");
+        assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The initial state of the checkbox should be unchecked");
+        dynamicControlsPage.changeCheckboxState();
+        assertEquals(dynamicControlsPage.isCheckboxChecked(), true, "The checkbox should be checked after first click");
+        dynamicControlsPage.changeCheckboxState();
+        assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The checkbox should be unchecked after second click");
+    }
+
 
 
 }

@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 
 public class DynamicControlsPage extends BasePage {
@@ -9,6 +10,7 @@ public class DynamicControlsPage extends BasePage {
     private final By paragraphLocator = By.tagName("p");
     private final By checkboxSubheaderLocator = By.className("subheader");
     private final By checkboxLocator = By.id("checkbox");
+    private final By checkboxInputTypeLocator = By.xpath("//input[@type='checkbox']");
     private final By removeBtnLocator = By.xpath("//button[text()='Remove']");
     private final By inputSubheaderLocator = By.xpath("//h4[text()='Enable/disable']");
     private final By inputLocator = By.xpath("//input[@type='text']");
@@ -63,6 +65,19 @@ public class DynamicControlsPage extends BasePage {
 
     public boolean isCorrectSauceLabsLinkDisplayed(String expectedLink) {
        return isCorrectElementDisplayed(sauceLabsLinkLocator, "Sauce Labs link", expectedLink);
+    }
+
+    public boolean isCheckboxChecked() {
+        WebElement checkbox = find(checkboxInputTypeLocator);
+        return checkbox.isSelected();
+    }
+
+    public void changeCheckboxState() {
+        String description = String.format("Change the Checkbox state");
+        step(description, () -> {
+            WebElement targetCheckbox = find(checkboxInputTypeLocator);
+            targetCheckbox.click();
+        });
     }
 
 
