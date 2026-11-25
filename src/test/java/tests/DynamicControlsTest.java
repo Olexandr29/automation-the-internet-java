@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import pages.DynamicControlsPage;
 
 import static org.testng.Assert.*;
+import testData.DynamicControlsData;
 
 public class DynamicControlsTest extends BaseTest {
     private DynamicControlsPage dynamicControlsPage;
@@ -16,18 +17,18 @@ public class DynamicControlsTest extends BaseTest {
 
     @Test
     public void TC38VerifyPageContent() {
-        assertEquals(driver.getCurrentUrl(), "https://the-internet.herokuapp.com/dynamic_controls", "The Dynamic Controls page should be opened");
+        assertEquals(driver.getCurrentUrl(), DynamicControlsData.DYNAMIC_CONTROLS_URL, "The Dynamic Controls page should be opened");
         assertEquals(dynamicControlsPage.isPageLoaded(), true, "The Dynamic Controls page should be loaded successfully and the document readyState should be complete");
-        assertEquals(dynamicControlsPage.isCorrectHeaderDisplayed("Dynamic Controls"), true, "The correct header 'Dynamic Controls' should be displayed");
-        assertEquals(dynamicControlsPage.isCorrectParagraphDisplayed("This example demonstrates when elements (e.g., checkbox, input field, etc.) are changed asynchronously."), true, "The correct paragraph should be displayed");
-        assertEquals(dynamicControlsPage.isCorrectCheckboxSubheaderDisplayed("Remove/add"), true, "The correct subheader 'Remove/add' should be displayed");
-        assertEquals(dynamicControlsPage.isCorrectCheckboxTitleDisplayed("A checkbox"), true, "The correct checkbox title 'A checkbox' should be displayed");
-        assertEquals(dynamicControlsPage.isRemoveButtonDisplayed("Remove"), true, "The button 'Remove' should be displayed");
-        assertEquals(dynamicControlsPage.isCorrectInputSubheaderDisplayed("Enable/disable"), true, "The correct input subheader 'Enable/disable' should be displayed");
+        assertEquals(dynamicControlsPage.isCorrectHeaderDisplayed(DynamicControlsData.HEADER), true, String.format("The correct header '%s' should be displayed", DynamicControlsData.HEADER));
+        assertEquals(dynamicControlsPage.isCorrectParagraphDisplayed(DynamicControlsData.PARAGRAPH), true, "The correct paragraph should be displayed");
+        assertEquals(dynamicControlsPage.isCorrectCheckboxSubheaderDisplayed(DynamicControlsData.CHECKBOX_SUBHEADER), true,  String.format("The correct subheader 's' should be displayed", DynamicControlsData.CHECKBOX_SUBHEADER));
+        assertEquals(dynamicControlsPage.isCorrectCheckboxTitleDisplayed(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title 's' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
+        assertEquals(dynamicControlsPage.isRemoveButtonDisplayed(DynamicControlsData.REMOVE_BUTTON_TITLE), true, String.format("The button 's' should be displayed", DynamicControlsData.REMOVE_BUTTON_TITLE));
+        assertEquals(dynamicControlsPage.isCorrectInputSubheaderDisplayed(DynamicControlsData.INPUT_SUBHEADER), true, String.format("The correct input subheader 's' should be displayed", DynamicControlsData.INPUT_SUBHEADER));
         assertEquals(dynamicControlsPage.isInputDisplayed(), true, "The input field should be displayed");
-        assertEquals(dynamicControlsPage.isEnableButtonDisplayed("Enable"), true, "The button 'Enable' should be displayed");
-        assertEquals(dynamicControlsPage.isCorrectFooterDisplayed("Powered by Elemental Selenium and Sauce Labs"), true, "The correct header 'Powered by Elemental Selenium and Sauce Labs' should be displayed");
-        assertEquals(dynamicControlsPage.isCorrectSeleniumLinkDisplayed("Elemental Selenium"), true, "The correct link 'Elemental Selenium' should be displayed");
-        assertEquals(dynamicControlsPage.isCorrectSauceLabsLinkDisplayed("Sauce Labs"), true, "The correct link 'Sauce Labs' should be displayed");
+        assertEquals(dynamicControlsPage.isEnableButtonDisplayed(DynamicControlsData.ENABLE_BUTTON_TITLE), true, String.format("The button 's' should be displayed", DynamicControlsData.ENABLE_BUTTON_TITLE));
+        assertEquals(dynamicControlsPage.isCorrectFooterDisplayed(DynamicControlsData.FOOTER), true, String.format("The correct header 's' should be displayed", DynamicControlsData.FOOTER));
+        assertEquals(dynamicControlsPage.isCorrectSeleniumLinkDisplayed(DynamicControlsData.SELENIUM_LINK_TITLE), true, String.format("The correct link 's' should be displayed", DynamicControlsData.SELENIUM_LINK_TITLE));
+        assertEquals(dynamicControlsPage.isCorrectSauceLabsLinkDisplayed(DynamicControlsData.SAUCE_LABS_LINK_TITLE), true, String.format("The correct link 's' should be displayed",DynamicControlsData.SAUCE_LABS_LINK_TITLE));
     }
 }
