@@ -13,10 +13,14 @@ public class DynamicControlsData {
         CHECKBOX_SUBHEADER = "Remove/add",
         CHECKBOX_TITLE = "A checkbox",
         REMOVE_BUTTON_TITLE = "Remove",
+        MESSAGE_AFTER_REMOVE = "It's gone!",
+        MESSAGE_AFTER_ADD = "It's back!",
+        ADD_BUTTON_TITLE = "Add",
         INPUT_SUBHEADER = "Enable/disable",
         ENABLE_BUTTON_TITLE = "Enable",
         FOOTER = "Powered by Elemental Selenium and Sauce Labs",
         SELENIUM_LINK_TITLE = "Elemental Selenium",
-        SAUCE_LABS_LINK_TITLE = "Sauce Labs";
+        SAUCE_LABS_LINK_TITLE = "Sauce Labs",
+        LOADING_TEXT = "Wait for it...";
 
 }

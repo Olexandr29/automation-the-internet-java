@@ -49,17 +49,24 @@ public abstract class BasePage {
         return elements.get(number - 1);
     }
 
-    protected void clickElement(By locator, String elementName) {
-        String description = String.format("Click on the: '%s'", elementName);
+    protected void clickElement(By locator) {
+        String description = String.format("Click on the: '%s'", locator);
         try {
                 logger.debug(description);
                 WebElement element = this.find(locator);
                 element.click();
-                logger.debug("'{}' clicked successfully", elementName);
+                logger.debug("'{}' clicked successfully", locator);
         } catch (Exception e) {
-            logger.error("Cannot click on the '{}'", elementName, e);
+            logger.error("Cannot click on the '{}'", locator, e);
             throw e;
         }
+    }
+
+    protected void clickElement(By locator, String elementName) {
+        String description = String.format("Click on the %s", elementName);
+        step(description, () -> {
+            clickElement(locator);
+        });
     }
 
     protected void type(By locator, String text, String elementName) {
@@ -84,6 +91,15 @@ public abstract class BasePage {
             return step(description, () -> {
                 return this.find(locator).isDisplayed();
             });
+        } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e) {
+            logger.warn("Element is not visible: {}", locator);
+            return false;
+        }
+    }
+
+    protected boolean isVisible(By locator) {
+        try {
+                return this.find(locator).isDisplayed();
         } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e) {
             logger.warn("Element is not visible: {}", locator);
             return false;
@@ -183,10 +199,15 @@ public abstract class BasePage {
         return js.executeScript("return document.readyState").equals("complete");
     }
 
-    public boolean isCorrectElementDisplayed(By locator, String elementName, String expectedFooter) {
+    public boolean isCorrectElementDisplayed(By locator, String elementName, String expectedResult) {
         String elementNameForAllure = elementName;
         return (isVisible(locator, elementNameForAllure))
-                && (getElementText(locator, elementNameForAllure).equals(expectedFooter));
+                && (getElementText(locator, elementNameForAllure).equals(expectedResult));
+    }
+
+    public boolean isCorrectElementDisplayed(By locator, String expectedResult) {
+        return (isVisible(locator))
+                && (getElementText(locator, "").equals(expectedResult));
     }
 
 
