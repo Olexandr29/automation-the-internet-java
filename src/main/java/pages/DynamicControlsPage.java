@@ -12,6 +12,10 @@ public class DynamicControlsPage extends BasePage {
     private final By checkboxSubheaderLocator = By.className("subheader");
     private final By checkboxLocator = By.id("checkbox");
     private final By checkboxInputTypeLocator = By.xpath("//input[@type='checkbox']");
+
+    private final By checkboxAfterAddLocator = By.xpath("//div/input[@type='checkbox']");
+    private final By checkboxTitleLocator = By.xpath("//div[text()=' A checkbox']");
+
     private final By removeBtnLocator = By.xpath("//button[text()='Remove']");
     private final By addBtnLocator = By.xpath("//button[text()='Add']");
     private final By inputSubheaderLocator = By.xpath("//h4[text()='Enable/disable']");
@@ -41,7 +45,8 @@ public class DynamicControlsPage extends BasePage {
     }
 
     public boolean isCheckboxWithCorrectTitleDisplayed(String expectedCheckboxTitle) {
-        return isCorrectElementDisplayed(checkboxLocator, "Checkbox title", expectedCheckboxTitle);
+        return isCorrectElementDisplayed(checkboxTitleLocator, "Checkbox title", expectedCheckboxTitle);
+//        checkboxLocator
     }
 
     public boolean isRemoveButtonDisplayed(String expectedButtonTitle) {
@@ -98,20 +103,33 @@ public class DynamicControlsPage extends BasePage {
     }
 
     public boolean waitUntilCheckboxAbsent() {
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(checkboxLocator));
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(checkboxTitleLocator));
+//        checkboxLocator
     }
 
     public WebElement waitUntilCheckboxClickable() {
-        return wait.until(ExpectedConditions.elementToBeClickable(checkboxLocator));
+        return wait.until(ExpectedConditions.elementToBeClickable(checkboxTitleLocator));
+//        checkboxLocator
     }
 
     public boolean isCheckboxDisplayed() {
-        return isVisible(checkboxLocator);
+        return isVisible(checkboxTitleLocator);
+//        checkboxLocator
     }
 
     public boolean isCheckboxTitleCorrect(String expectedCheckboxTitle) {
-        return getElementText(checkboxInputTypeLocator, "Checkbox title").equals(expectedCheckboxTitle);
+        return getElementText(checkboxTitleLocator, "Checkbox title").equals(expectedCheckboxTitle);
+//        checkboxInputTypeLocator
     }
+
+
+
+
+    public String getCheckboxTitleWith4checkboxTitleLocator() {
+        return getElementText(checkboxTitleLocator, "getCheckboxTitleWith4checkboxTitleLocator after click Add button");
+    }
+
+
 
 
 

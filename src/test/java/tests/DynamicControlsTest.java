@@ -78,10 +78,13 @@ public class DynamicControlsTest extends BaseTest {
         assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_REMOVE), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_REMOVE));
         dynamicControlsPage.clickOnAddButton();
         assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
-//        assertEquals(dynamicControlsPage.isCheckboxAppeared(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title '%s' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
-       dynamicControlsPage.waitUntilCheckboxClickable();
-        assertEquals(dynamicControlsPage.isCheckboxDisplayed(), true, "where is your checkbox?");
-        assertEquals(dynamicControlsPage.isCheckboxTitleCorrect(DynamicControlsData.CHECKBOX_TITLE), true, "your title for checkbox is wrong");
+//       dynamicControlsPage.waitUntilCheckboxClickable();
+//        assertEquals(dynamicControlsPage.isCheckboxDisplayed(), true, "The checkbox should appear");
+
+//        assertEquals(dynamicControlsPage.isCheckboxDisplayed(), true, "The checkbox should appear");
+//        dynamicControlsPage.getCheckboxTitleWith4checkboxTitleLocator();
+
+        assertEquals(dynamicControlsPage.isCheckboxWithCorrectTitleDisplayed(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title '%s' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
 
         assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The checkbox should have unchecked state");
         assertEquals(dynamicControlsPage.isButtonTitleChangedFromAddToRemove(DynamicControlsData.REMOVE_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.ADD_BUTTON_TITLE, DynamicControlsData.REMOVE_BUTTON_TITLE));
