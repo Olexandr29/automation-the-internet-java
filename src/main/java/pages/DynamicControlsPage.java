@@ -12,8 +12,6 @@ public class DynamicControlsPage extends BasePage {
     private final By checkboxSubheaderLocator = By.className("subheader");
     private final By checkboxTitleLocator = By.xpath("//div[text()=' A checkbox']");
     private final By checkboxInputTypeLocator = By.xpath("//input[@type='checkbox']");
-    private final By checkboxAfterAddLocator = By.xpath("//div/input[@type='checkbox']");
-
     private final By removeBtnLocator = By.xpath("//button[text()='Remove']");
     private final By addBtnLocator = By.xpath("//button[text()='Add']");
     private final By inputSubheaderLocator = By.xpath("//h4[text()='Enable/disable']");

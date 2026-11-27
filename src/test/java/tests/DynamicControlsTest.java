@@ -48,38 +48,29 @@ public class DynamicControlsTest extends BaseTest {
         assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The checkbox should be unchecked after second click");
     }
 
-//    public void verificationAfterRemoveBtnClick() {
-//        assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
-//        assertEquals(dynamicControlsPage.waitUntilCheckboxAbsent(), true, "The checkbox should be removed and not displayed at the page");
-//        assertEquals(dynamicControlsPage.isButtonTitleChangedFromRemoveToAdd(DynamicControlsData.ADD_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.REMOVE_BUTTON_TITLE, DynamicControlsData.ADD_BUTTON_TITLE));
-//        assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_REMOVE), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_REMOVE));
-//    }
+    private void verificationAfterRemoveBtnClick() {
+        assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
+        assertEquals(dynamicControlsPage.waitUntilCheckboxAbsent(), true, "The checkbox should be removed and not displayed at the page");
+        assertEquals(dynamicControlsPage.isButtonTitleChangedFromRemoveToAdd(DynamicControlsData.ADD_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.REMOVE_BUTTON_TITLE, DynamicControlsData.ADD_BUTTON_TITLE));
+        assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_REMOVE), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_REMOVE));
+    }
 
-    //    public void verificationAfterAddBtnClick() {
-//    assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
-//    assertEquals(dynamicControlsPage.isCheckboxAppeared(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title '%s' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
-//    assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The checkbox should have unchecked state");
-//    assertEquals(dynamicControlsPage.isButtonTitleChangedFromAddToRemove(DynamicControlsData.REMOVE_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.ADD_BUTTON_TITLE, DynamicControlsData.REMOVE_BUTTON_TITLE));
-//    assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_ADD), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_ADD));
-
-
-
+        private void verificationAfterAddBtnClick() {
+        assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
+        assertEquals(dynamicControlsPage.isCheckboxWithCorrectTitleDisplayed(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title '%s' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
+        assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The checkbox should have unchecked state");
+        assertEquals(dynamicControlsPage.isButtonTitleChangedFromAddToRemove(DynamicControlsData.REMOVE_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.ADD_BUTTON_TITLE, DynamicControlsData.REMOVE_BUTTON_TITLE));
+        assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_ADD), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_ADD));
+    }
 
     @Test
     public void TC40RemoveAndAddCheckbox() {
         Allure.step("Observe the Checkbox initial state");
         assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The initial state of the checkbox should be unchecked");
         dynamicControlsPage.clickOnRemoveButton();
-        assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
-        assertEquals(dynamicControlsPage.waitUntilCheckboxAbsent(), true, "The checkbox should be removed and not displayed at the page");
-        assertEquals(dynamicControlsPage.isButtonTitleChangedFromRemoveToAdd(DynamicControlsData.ADD_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.REMOVE_BUTTON_TITLE, DynamicControlsData.ADD_BUTTON_TITLE));
-        assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_REMOVE), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_REMOVE));
+        verificationAfterRemoveBtnClick();
         dynamicControlsPage.clickOnAddButton();
-        assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
-        assertEquals(dynamicControlsPage.isCheckboxWithCorrectTitleDisplayed(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title '%s' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
-        assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The checkbox should have unchecked state");
-        assertEquals(dynamicControlsPage.isButtonTitleChangedFromAddToRemove(DynamicControlsData.REMOVE_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.ADD_BUTTON_TITLE, DynamicControlsData.REMOVE_BUTTON_TITLE));
-        assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_ADD), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_ADD));
+        verificationAfterAddBtnClick();
     }
 
 
