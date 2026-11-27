@@ -3,8 +3,6 @@ package tests;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.DynamicControlsPage;
@@ -78,14 +76,7 @@ public class DynamicControlsTest extends BaseTest {
         assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_REMOVE), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_REMOVE));
         dynamicControlsPage.clickOnAddButton();
         assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
-//       dynamicControlsPage.waitUntilCheckboxClickable();
-//        assertEquals(dynamicControlsPage.isCheckboxDisplayed(), true, "The checkbox should appear");
-
-//        assertEquals(dynamicControlsPage.isCheckboxDisplayed(), true, "The checkbox should appear");
-//        dynamicControlsPage.getCheckboxTitleWith4checkboxTitleLocator();
-
         assertEquals(dynamicControlsPage.isCheckboxWithCorrectTitleDisplayed(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title '%s' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
-
         assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The checkbox should have unchecked state");
         assertEquals(dynamicControlsPage.isButtonTitleChangedFromAddToRemove(DynamicControlsData.REMOVE_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.ADD_BUTTON_TITLE, DynamicControlsData.REMOVE_BUTTON_TITLE));
         assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_ADD), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_ADD));
