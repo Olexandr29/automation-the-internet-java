@@ -85,6 +85,12 @@ public abstract class BasePage {
             return text;
     }
 
+    protected String getElementText(By locator) {
+        WebElement element = this.find(locator);
+        String text = element.getText();
+        return text;
+    }
+
     protected boolean isVisible(By locator, String elementName) {
         String description = String.format("Observe the %s visibility", elementName);
         try {
@@ -207,7 +213,7 @@ public abstract class BasePage {
 
     public boolean isCorrectElementDisplayed(By locator, String expectedResult) {
         return (isVisible(locator))
-                && (getElementText(locator, "").equals(expectedResult));
+                && (getElementText(locator).equals(expectedResult));
     }
 
 

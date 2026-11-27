@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+
 
 public class DynamicControlsPage extends BasePage {
     private final By headerLocator = By.tagName("h4");
@@ -12,6 +14,7 @@ public class DynamicControlsPage extends BasePage {
     private final By checkboxSubheaderLocator = By.className("subheader");
     private final By checkboxTitleLocator = By.xpath("//div[text()=' A checkbox']");
     private final By checkboxInputTypeLocator = By.xpath("//input[@type='checkbox']");
+    private final By titleFromRemovedCheckboxTitle = By.xpath("//div[text()=' A checkbox']");
     private final By removeBtnLocator = By.xpath("//button[text()='Remove']");
     private final By addBtnLocator = By.xpath("//button[text()='Add']");
     private final By inputSubheaderLocator = By.xpath("//h4[text()='Enable/disable']");
@@ -40,7 +43,7 @@ public class DynamicControlsPage extends BasePage {
         return isCorrectElementDisplayed(checkboxSubheaderLocator, "Checkbox subheader",  expectedSubheader);
     }
 
-    public boolean isCheckboxWithCorrectTitleDisplayed(String expectedCheckboxTitle) {
+        public boolean isCheckboxWithCorrectTitleDisplayed(String expectedCheckboxTitle) {
         return isCorrectElementDisplayed(checkboxTitleLocator, "Checkbox title", expectedCheckboxTitle);
     }
 
@@ -81,6 +84,10 @@ public class DynamicControlsPage extends BasePage {
         clickElement(checkboxInputTypeLocator, "Checkbox to change checkbox state");
     }
 
+    public boolean isCheckboxWithTitleDisplayed(String expectedCheckboxTitle) {
+        return isCorrectElementDisplayed(checkboxTitleLocator, expectedCheckboxTitle);
+    }
+
     public void clickOnRemoveButton() {
         clickElement(removeBtnLocator, "Remove button");
     }
@@ -98,11 +105,8 @@ public class DynamicControlsPage extends BasePage {
     }
 
     public boolean waitUntilCheckboxAbsent() {
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(checkboxTitleLocator));
-    }
-
-    public WebElement waitUntilCheckboxClickable() {
-        return wait.until(ExpectedConditions.elementToBeClickable(checkboxTitleLocator));
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(checkboxInputTypeLocator));
+//        checkboxTitleLocator
     }
 
     public WebElement waitUntilAddButtonPresent() {
@@ -125,6 +129,17 @@ public class DynamicControlsPage extends BasePage {
 
     public boolean isCorrectTextDisplayed(String expectedResult) {
         return isCorrectElementDisplayed(messageLocator, expectedResult);
+    }
+
+    public boolean isCorrectTextDisplayedAfterRemoveCheckbox(String expectedTitle) {
+        return isCorrectElementDisplayed(titleFromRemovedCheckboxTitle, expectedTitle);
+    }
+
+    public int getAmountOfTitleFromCheckboxes() {
+        List<WebElement> titles = findElements(titleFromRemovedCheckboxTitle);
+        int amountOfTitles = titles.size();
+        logger.info("amountOfTitles = {}", amountOfTitles);
+        return amountOfTitles;
     }
 
 

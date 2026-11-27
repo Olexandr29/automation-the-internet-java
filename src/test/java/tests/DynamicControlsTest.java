@@ -57,7 +57,7 @@ public class DynamicControlsTest extends BaseTest {
 
         private void verificationAfterAddBtnClick() {
         assertEquals(dynamicControlsPage.isWaitTextAndLoadIndicatorDisplayed(DynamicControlsData.LOADING_TEXT), true, String.format("The text '%s' and indeterminate progress bar should be displayed", DynamicControlsData.LOADING_TEXT));
-        assertEquals(dynamicControlsPage.isCheckboxWithCorrectTitleDisplayed(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title '%s' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
+        assertEquals(dynamicControlsPage.isCheckboxWithTitleDisplayed(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The correct checkbox title '%s' should be displayed", DynamicControlsData.CHECKBOX_TITLE));
         assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The checkbox should have unchecked state");
         assertEquals(dynamicControlsPage.isButtonTitleChangedFromAddToRemove(DynamicControlsData.REMOVE_BUTTON_TITLE), true, String.format("The button title '%s' should be changed to '%s'", DynamicControlsData.ADD_BUTTON_TITLE, DynamicControlsData.REMOVE_BUTTON_TITLE));
         assertEquals(dynamicControlsPage.isCorrectTextDisplayed(DynamicControlsData.MESSAGE_AFTER_ADD), true, String.format("The text '%s' should be displayed", DynamicControlsData.MESSAGE_AFTER_ADD));
@@ -73,6 +73,34 @@ public class DynamicControlsTest extends BaseTest {
         verificationAfterAddBtnClick();
     }
 
+    @Test
+    public void TC41RemoveAndAddCheckedCheckbox() {
+        Allure.step("Observe the Checkbox initial state");
+        assertEquals(dynamicControlsPage.isCheckboxChecked(), false, "The initial state of the checkbox should be unchecked");
+        dynamicControlsPage.changeCheckboxState();
+        assertEquals(dynamicControlsPage.isCheckboxChecked(), true, "The checkbox should became checked");
+        dynamicControlsPage.clickOnRemoveButton();
+        verificationAfterRemoveBtnClick();
+        dynamicControlsPage.clickOnAddButton();
+        verificationAfterAddBtnClick();
+            logger.info("Step 5");
+        dynamicControlsPage.changeCheckboxState();
+        assertEquals(dynamicControlsPage.isCheckboxChecked(), true, "The checkbox should became checked");
+        dynamicControlsPage.clickOnRemoveButton();
+        verificationAfterRemoveBtnClick();
+        assertEquals(dynamicControlsPage.isCorrectTextDisplayedAfterRemoveCheckbox(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The text '%s' should be displayed at the page", DynamicControlsData.CHECKBOX_TITLE));
+            logger.info("Step 6");
+            dynamicControlsPage.clickOnAddButton();
+        verificationAfterAddBtnClick();
+        assertEquals(dynamicControlsPage.isCorrectTextDisplayedAfterRemoveCheckbox(DynamicControlsData.CHECKBOX_TITLE), true, String.format("The text '%s' should be displayed at the page", DynamicControlsData.CHECKBOX_TITLE));
+            logger.info("Step 7");
+        dynamicControlsPage.changeCheckboxState();
+        assertEquals(dynamicControlsPage.isCheckboxChecked(), true, "The checkbox should became checked");
+        dynamicControlsPage.clickOnRemoveButton();
+        verificationAfterRemoveBtnClick();
+        assertEquals(dynamicControlsPage.getAmountOfTitleFromCheckboxes(), 2, String.format("The text '%s' should be displayed 2 times at the page", DynamicControlsData.CHECKBOX_TITLE));
+
+    }
 
 
 }
